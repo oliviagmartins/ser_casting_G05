@@ -39,7 +39,7 @@ if treinamento is not None:
     st.write("Preview do arquivo de treinamento:")
     st.dataframe(df_treinamento)
 
-if vendsa is not None:
+if vendas is not None:
     df_vendas = pd.read_csv(vendas)
     st.write("Preview do arquivo de vendas:")
     st.dataframe(df_vendas)
