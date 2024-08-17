@@ -47,26 +47,57 @@ if vendas is not None:
 # Proceed with any further data processing or model predictions
 
 # Data Preparation
+# Data Preparation
+if 'df_vendas' in globals():
+    vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
+    st.write("Summed Sales Data by Client Code:")
+    st.dataframe(vendas_cliente)
 
+if 'df_acessos' in globals():
+    acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
+    st.write("Summed Access Data by Client Code:")
+    st.dataframe(acessos_cliente)
+
+if 'df_feedback' in globals():
+    qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
+    qtd_feedback.rename(columns={'CLI_CODIGO': 'cli_codigo', 'Data': 'qtd_feedback'}, inplace=True)
+    st.write("Feedback Count by Client Code:")
+    st.dataframe(qtd_feedback)
+
+if 'df_campanha' in globals():
+    qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
+    qtd_campanha.rename(columns={'Cliente': 'cli_codigo', 'Campanha_Nome': 'qtd_campanha'}, inplace=True)
+    st.write("Campaign Count by Client Code:")
+    st.dataframe(qtd_campanha)
+
+if 'df_treinamento' in globals():
+    qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
+    qtd_treinamento = qtd_treinamento[['Cliente', 'Treinamento']]
+    qtd_treinamento.rename(columns={'Cliente': 'cli_codigo', 'Treinamento': 'qtd_treinamento'}, inplace=True)
+    st.write("Training Count by Client Code:")
+    st.dataframe(qtd_treinamento)
+
+# After data preparation, you can perform additional tasks like merging these dataframes
+# and making predictions using the model
 # Assuming you have previously defined and loaded your DataFrames: df_vendas, df_acessos, df_feedback, df_campanha, df_treinamento
 
 # Check if DataFrames exist
-if 'df_vendas' in globals() and 'df_acessos' in globals() and 'df_feedback' in globals() and 'df_campanha' in globals() and 'df_treinamento' in globals():
+#if 'df_vendas' in globals() and 'df_acessos' in globals() and 'df_feedback' in globals() and 'df_campanha' in globals() and 'df_treinamento' in globals():
     
     # Prepare DataFrames as before
    # vendas_cliente = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count').reset_index()
     #acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
-    qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
-    qtd_feedback.rename(columns={'CLI_CODIGO':'cli_codigo','Data':'qtd_feedback'}, inplace=True)
-    qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
-    qtd_campanha.rename(columns={'Cliente':'cli_codigo','Campanha_Nome':'qtd_campanha'}, inplace=True)
-    qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
-    qtd_treinamento = qtd_treinamento[['Cliente','Treinamento']]
-    qtd_treinamento.rename(columns={'Cliente':'cli_codigo','Treinamento':'qtd_treinamento'}, inplace=True)
+  #  qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
+   # qtd_feedback.rename(columns={'CLI_CODIGO':'cli_codigo','Data':'qtd_feedback'}, inplace=True)
+    #qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
+    #qtd_campanha.rename(columns={'Cliente':'cli_codigo','Campanha_Nome':'qtd_campanha'}, inplace=True)
+    #qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
+    #qtd_treinamento = qtd_treinamento[['Cliente','Treinamento']]
+    #qtd_treinamento.rename(columns={'Cliente':'cli_codigo','Treinamento':'qtd_treinamento'}, inplace=True)
 
    
-#st.write(type(vendas_cliente))
-#st.write(type(acessos_cliente))
+st.write(type(vendas_cliente))
+st.write(type(acessos_cliente))
 st.write(type(qtd_treinamento))
 st.write(type(qtd_campanha))
 st.write(type(qtd_feedback))
