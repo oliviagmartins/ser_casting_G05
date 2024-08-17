@@ -1,30 +1,40 @@
 import streamlit as st
-import joblib
-import numpy as np
-
-# Load the model from the pickle file
-model = joblib.load('random_forest_model.pkl')
-
-# Function to make predictions
-def make_prediction(input_data):
-    input_data = np.array(input_data)
-    if np.any(np.isnan(input_data)):
-        st.error("Input data contains missing values.")
-        returnNone
-    prediction = model.predict([input_data])
-    return prediction[0]
+import pandas as pd
 
 # Streamlit app UI
-st.title("Previsão quantidade de vendas")
+st.title("Sales Prediction App")
 
-# Collect user inputs
-Vlr_Liquido = st.number_input("Insira o valor líquido")
-Quantidade_de_Acessos = st.number_input("Insira a quantidade de acessos")
-qtd_campanha = st.number_input("Insira a quantidade de campanha")
-qtd_treinamento = st.number_input("Insira a quantidade de treinamento")
-qtd_feedback = st.number_input("Insira a quantidade de feedback")
-# Add more input fields as needed# Make predictionif st.button("Predict"):
+# File uploaders for each CSV file
+acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
+campanha = st.file_uploader("Upload do arquivo de campanha", type=["csv"], key="campanha")
+feedback = st.file_uploader("Upload do arquivo de feedback", type=["csv"], key="feedback")
+treinamento = st.file_uploader("Upload do arquivo de treinamento", type=["csv"], key="treinamento")
+vendas = st.file_uploader("Upload do arquivo de vendas", type=["csv"], key="vendas")
 
-input_data = [Vlr_Liquido, Quantidade_de_Acessos, qtd_campanha, qtd_treinamento, qtd_feedback]  # Adjust this to match your model's input
-prediction = make_prediction(input_data)
-st.write(f"A quantidade de vendas prevista é: {prediction}")
+# Read the files into DataFrames
+if acessos is not None:
+    df_acessos = pd.read_csv(acessos)
+    st.write("Preview do arquivo de acessos:")
+    st.dataframe(df_acessos)
+
+if campanha is not None:
+    df_campanha = pd.read_csv(campanha)
+    st.write("Preview do arquivo de campanha:")
+    st.dataframe(df_campanha)
+
+if feedback is not None:
+    df_feedback = pd.read_csv(feedback)
+    st.write("Preview do arquivo de feedback:")
+    st.dataframe(df_feedback)
+
+if treinamento is not None:
+    df_treinamento = pd.read_csv(treinamento)
+    st.write("Preview do arquivo de treinamento:")
+    st.dataframe(df_treinamento)
+
+if vendsa is not None:
+    df_vendas = pd.read_csv(vendas)
+    st.write("Preview do arquivo de vendas:")
+    st.dataframe(df_vendas)
+
+# Proceed with any further data processing or model predictions
