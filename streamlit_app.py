@@ -131,14 +131,14 @@ st.write("Model loaded successfully!")
             #st.write(f"Box-Cox transformation applied to {column}")
 
     # Prepare the features for prediction
-    X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
-    y = analise_vendas['Qtd_Vendas']
+X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+y = analise_vendas['Qtd_Vendas']
 
     # Split the dataset into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Predict using the model
-    y_pred = model.predict(X_test)
+y_pred = model.predict(X_test)
 
     # Display Feature Importances
     #importances = model.feature_importances_
