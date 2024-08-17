@@ -48,54 +48,44 @@ if vendas is not None:
 
 # Data Preparation
 
-if 'df_vendas' in globals():
-    df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
-    st.write("Criação da quantidade de vendas")
+# Assuming you have previously defined and loaded your DataFrames: df_vendas, df_acessos, df_feedback, df_campanha, df_treinamento
+
+# Check if DataFrames exist
+if 'df_vendas' in globals() and 'df_acessos' in globals() and 'df_feedback' in globals() and 'df_campanha' in globals() and 'df_treinamento' in globals():
     
-if 'df_vendas' in globals():
+    # Prepare DataFrames as before
     vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
-    st.write("Summed Sales Data by Client Code:")
-
-if 'df_acessos' in globals():
     acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
-    st.write("Summed Access Data by Client Code:")
-
-if 'df_feedback' in globals():
     qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
-    qtd_feedback.rename(columns={'CLI_CODIGO': 'cli_codigo', 'Data': 'qtd_feedback'}, inplace=True)
-    st.write("Feedback Count by Client Code:")
-
-if 'df_campanha' in globals():
+    qtd_feedback.rename(columns={'CLI_CODIGO':'cli_codigo','Data':'qtd_feedback'}, inplace=True)
     qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
-    qtd_campanha.rename(columns={'Cliente': 'cli_codigo', 'Campanha_Nome': 'qtd_campanha'}, inplace=True)
-    st.write("Campaign Count by Client Code:")
-
-if 'df_treinamento' in globals():
+    qtd_campanha.rename(columns={'Cliente':'cli_codigo','Campanha_Nome':'qtd_campanha'}, inplace=True)
     qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
-    qtd_treinamento = qtd_treinamento[['Cliente', 'Treinamento']]
-    qtd_treinamento.rename(columns={'Cliente': 'cli_codigo', 'Treinamento': 'qtd_treinamento'}, inplace=True)
-    st.write("Training Count by Client Code:")
+    qtd_treinamento = qtd_treinamento[['Cliente','Treinamento']]
+    qtd_treinamento.rename(columns={'Cliente':'cli_codigo','Treinamento':'qtd_treinamento'}, inplace=True)
 
-# Merging DataFrames
-if 'vendas_cliente' in globals() and 'acessos_cliente' in globals():
-    # Merge with access data
-    analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
-    analise_vendas.fillna(0, inplace=True)
+    # Merges
+    if 'qtd_campanha' in globals():
+        analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
+        analise_vendas.fillna(0, inplace=True)
+        analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
+        analise_vendas.fillna(0, inplace=True)
+        analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
+        analise_vendas.fillna(0, inplace=True)
+        analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
+        analise_vendas.fillna(0, inplace=True)
 
-if 'qtd_treinamento' in globals():
-    # Merge with training data
-    analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
-    analise_vendas.fillna(0, inplace=True)
+        # Display columns for debugging
+        st.write("Columns in analise_vendas after merges:", analise_vendas.columns)
+        
+        # Filter columns
+        analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+        st.write("Filtered analise_vendas:", analise_vendas.head())
 
-if 'qtd_campanha' in globals():
-    # Merge with campaign data
-    analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
-    analise_vendas.fillna(0, inplace=True)
-
-if 'qtd_feedback' in globals():
-    # Merge with feedback data
-    analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
-    analise_vendas.fillna(0, inplace=True)
+    else:
+        st.error("qtd_campanha is not defined.")
+else:
+    st.error("One or more required DataFrames are not defined.")
 
 #st.write("Columns in analise_vendas:", analise_vendas.columns)
 
