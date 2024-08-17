@@ -177,7 +177,17 @@ if 'analise_vendas' in globals():
 else:
     st.write("analise_vendas is not defined.")
 
+
     # Prepare the features for prediction
+X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+
+    # Make predictions
+predictions = model.predict(X)
+
+    # Display the predictions
+st.write("Predictions:")
+st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
+# Prepare the features for prediction
 #X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
 #y = analise_vendas['Qtd_Vendas']
 
