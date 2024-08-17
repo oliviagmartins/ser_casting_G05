@@ -65,7 +65,7 @@ if 'df_vendas' in globals() and 'df_acessos' in globals() and 'df_feedback' in g
     qtd_treinamento.rename(columns={'Cliente':'cli_codigo','Treinamento':'qtd_treinamento'}, inplace=True)
 
    
-st.write(type(vendas_cliente))
+#st.write(type(vendas_cliente))
 st.write(type(acessos_cliente))
 st.write(type(qtd_treinamento))
 st.write(type(qtd_campanha))
