@@ -89,7 +89,7 @@ if 'df_treinamento' in globals():
         analise_vendas.fillna(0, inplace=True)
 
         # Display columns for debugging
-    st.write("Columns in analise_vendas after merges:", analise_vendas.columns)
+   # st.write("Columns in analise_vendas after merges:", analise_vendas.columns)
         
         # Filter columns
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
