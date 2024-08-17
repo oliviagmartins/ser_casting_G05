@@ -108,9 +108,7 @@ if 'df_treinamento' in globals():
 #st.dataframe(analise_vendas)
 
 # Load the model from the pickle file
-model = joblib.load('random_forest_model.pkl')
 
-st.write("Model loaded successfully!")
 
 # Check the initial data
 #st.write("Before transformation:")
@@ -164,6 +162,10 @@ if 'analise_vendas' in globals():
 else:
     st.write("'my_variable' is not a global variable.")
 
+
+model = joblib.load('random_forest_model.pkl')
+
+st.write("Model loaded successfully!")
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
     # Prepare the features for prediction
