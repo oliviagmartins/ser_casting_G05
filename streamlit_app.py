@@ -7,7 +7,7 @@ model = joblib.load('random_forest_model.pkl')
 
 # Function to make predictionsdefmake_prediction(input_data):
 prediction = model.predict([input_data])
-    return prediction[0]
+return prediction[0]
 
 # Streamlit app UI
 st.title("Previsão quantidade de vendas")
