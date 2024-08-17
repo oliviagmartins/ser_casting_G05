@@ -160,15 +160,9 @@ st.write("Model loaded successfully!")
 
 
 if 'analise_vendas' in globals():
-    st.write("analise_vendas is defined and ready to use.")
+    st.write("'my_variable' is a global variable.")
 else:
-    st.write("analise_vendas is not defined.")
-
-
-if globals().get('analise_vendas'):
-    st.write('analise_vendas is global')
-else:
-    st.write('analise_vendas is local')
+    st.write("'my_variable' is not a global variable.")
 
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
