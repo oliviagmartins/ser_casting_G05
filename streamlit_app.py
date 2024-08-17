@@ -19,6 +19,7 @@ qtd_campanha = st.number_input("Insira a quantidade de campanha")
 qtd_treinamento = st.number_input("Insira a quantidade de treinamento")
 qtd_feedback = st.number_input("Insira a quantidade de feedback")
 # Add more input fields as needed# Make predictionif st.button("Predict"):
-    input_data = [Vlr_Liquido, Quantidade_de_Acessos, qtd_campanha, qtd_treinamento, qtd_feedback]  # Adjust this to match your model's input
-    prediction = make_prediction(input_data)
-    st.write(f"The predicted sales amount is: {prediction}"
+
+input_data = [Vlr_Liquido, Quantidade_de_Acessos, qtd_campanha, qtd_treinamento, qtd_feedback]  # Adjust this to match your model's input
+prediction = make_prediction(input_data)
+st.write(f"The predicted sales amount is: {prediction}"
