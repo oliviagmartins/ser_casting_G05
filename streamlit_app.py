@@ -113,32 +113,32 @@ model = joblib.load('random_forest_model.pkl')
 
 st.write("Model loaded successfully!")
 
-if 'analise_vendas' in globals():
+#if 'analise_vendas' in globals():
     # Identify columns with string (object) dtype
-    object_cols = analise_vendas.select_dtypes(include=['object']).columns
+    #object_cols = analise_vendas.select_dtypes(include=['object']).columns
 
     # Apply Label Encoding to each object column
-    label_encoders = {}
-    for col in object_cols:
-        le = LabelEncoder()
-        analise_vendas[col] = le.fit_transform(analise_vendas[col])
-        label_encoders[col] = le  # Store the encoder for later use if needed
+    #label_encoders = {}
+    #for col in object_cols:
+        #le = LabelEncoder()
+        #analise_vendas[col] = le.fit_transform(analise_vendas[col])
+        #label_encoders[col] = le  # Store the encoder for later use if needed
 
     # Apply Box-Cox transformations
-    for column in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
-        if column in analise_vendas.columns:
-            analise_vendas[column], lambda_ = stats.boxcox(analise_vendas[column] + 1)
-            st.write(f"Box-Cox transformation applied to {column}")
+    #for column in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
+        #if column in analise_vendas.columns:
+            #analise_vendas[column], lambda_ = stats.boxcox(analise_vendas[column] + 1)
+            #st.write(f"Box-Cox transformation applied to {column}")
 
     # Prepare the features for prediction
-    #X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
-    #y = analise_vendas['Qtd_Vendas']
+    X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+    y = analise_vendas['Qtd_Vendas']
 
     # Split the dataset into training and testing sets
-    #X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Predict using the model
-    #y_pred = model.predict(X_test)
+    y_pred = model.predict(X_test)
 
     # Display Feature Importances
     #importances = model.feature_importances_
