@@ -7,7 +7,11 @@ model = joblib.load('random_forest_model.pkl')
 
 # Function to make predictions
 def make_prediction(input_data):
-    prediction = model.predict([input_data])
+    # Ensure input_data is a 2D array and check for NaN values
+    input_data = np.array(input_data).reshape(1, -1)  # Reshape to 2D arrayif np.any(np.isnan(input_data)):
+        st.error("Input data contains missing values.")
+        returnNone
+    prediction = model.predict(input_data)
     return prediction[0]
 
 # Streamlit app UI
