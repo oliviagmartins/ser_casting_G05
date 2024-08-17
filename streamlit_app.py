@@ -45,8 +45,10 @@ if vendas is not None:
     st.dataframe(df_vendas)
 
 if vendas is not None:
-    df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count').reset_index()
-    
+    df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
+
+st.write(df_vendas)
+
 # Data Preparation
 if 'df_vendas' in globals():
     vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
