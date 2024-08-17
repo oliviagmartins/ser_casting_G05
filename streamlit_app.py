@@ -187,25 +187,17 @@ predictions = model.predict(X)
     # Display the predictions
 st.write("Predictions:")
 st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
-# Prepare the features for prediction
-#X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
-#y = analise_vendas['Qtd_Vendas']
 
-    # Split the dataset into training and testing sets
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    # Predict using the model
-#y_pred = model.predict(X_test)
+# Display Feature Importances
+importances = model.feature_importances_
+feature_names = X.columns
+feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
 
-    # Display Feature Importances
-    #importances = model.feature_importances_
-    #feature_names = X.columns
-    #feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
-    #feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
-
-    #st.write("Feature Importances:")
-    #st.dataframe(feature_importance_df)
-    #st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
+st.write("Feature Importances:")
+st.dataframe(feature_importance_df)
+st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
 
     # Plot Predicted vs Actual Values
     #st.write("Predicted vs Actual Values:")
