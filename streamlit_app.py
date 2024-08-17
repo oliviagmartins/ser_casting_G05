@@ -117,16 +117,26 @@ st.write("Model loaded successfully!")
 st.write("Before transformation:")
 st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
 
+# List of columns to transform
+columns_to_transform = ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']
+
+for col in columns_to_transform:
+    if analise_vendas[col].nunique() > 1:  # Check if column is not constant
+        analise_vendas[col], _ = stats.boxcox(analise_vendas[col] + 1)
+    else:
+        st.write(f"Skipping Box-Cox transformation for column: {col} (constant values)")
+
+
 # Apply Box-Cox transformation
-try:
-    analise_vendas['Vlr_Liquido'], lambda_ = stats.boxcox(analise_vendas['Vlr_Liquido'] + 1)
-    analise_vendas['Qtd_Vendas'], lambda_ = stats.boxcox(analise_vendas['Qtd_Vendas'] + 1)
-    analise_vendas['Quantidade_de_Acessos'], lambda_ = stats.boxcox(analise_vendas['Quantidade_de_Acessos'] + 1)
-    analise_vendas['qtd_treinamento'], lambda_ = stats.boxcox(analise_vendas['qtd_treinamento'] + 1)
-    analise_vendas['qtd_campanha'], lambda_ = stats.boxcox(analise_vendas['qtd_campanha'] + 1)
-    analise_vendas['qtd_feedback'], lambda_ = stats.boxcox(analise_vendas['qtd_feedback'] + 1)
-    analise_vendas['N_Produtos'], lambda_ = stats.boxcox(analise_vendas['N_Produtos'] + 1)
-    analise_vendas['Vlr_Desconto'], lambda_ = stats.boxcox(analise_vendas['Vlr_Desconto'] + 1)
+#try:
+#    analise_vendas['Vlr_Liquido'], lambda_ = stats.boxcox(analise_vendas['Vlr_Liquido'] + 1)
+#    analise_vendas['Qtd_Vendas'], lambda_ = stats.boxcox(analise_vendas['Qtd_Vendas'] + 1)
+#    analise_vendas['Quantidade_de_Acessos'], lambda_ = stats.boxcox(analise_vendas['Quantidade_de_Acessos'] + 1)
+#    analise_vendas['qtd_treinamento'], lambda_ = stats.boxcox(analise_vendas['qtd_treinamento'] + 1)
+#    analise_vendas['qtd_campanha'], lambda_ = stats.boxcox(analise_vendas['qtd_campanha'] + 1)
+#    analise_vendas['qtd_feedback'], lambda_ = stats.boxcox(analise_vendas['qtd_feedback'] + 1)
+#    analise_vendas['N_Produtos'], lambda_ = stats.boxcox(analise_vendas['N_Produtos'] + 1)
+#    analise_vendas['Vlr_Desconto'], lambda_ = stats.boxcox(analise_vendas['Vlr_Desconto'] + 1)
     
     # Check the transformed data
     st.write("After transformation:")
