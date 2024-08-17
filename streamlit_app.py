@@ -47,6 +47,11 @@ if vendas is not None:
 # Proceed with any further data processing or model predictions
 
 # Data Preparation
+
+if 'df_vendas' in globals():
+    df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
+    st.write("Criação da quantidade de vendas")
+    
 if 'df_vendas' in globals():
     vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
     st.write("Summed Sales Data by Client Code:")
