@@ -22,4 +22,4 @@ qtd_feedback = st.number_input("Insira a quantidade de feedback")
 
 input_data = [Vlr_Liquido, Quantidade_de_Acessos, qtd_campanha, qtd_treinamento, qtd_feedback]  # Adjust this to match your model's input
 prediction = make_prediction(input_data)
-    st.write(f"The predicted sales amount is: {prediction}"
+st.write(f"A quantidade de vendas prevista é: {prediction}"
