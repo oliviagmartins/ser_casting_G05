@@ -8,7 +8,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from scipy import stats
 
-# Streamlit app UI
 st.title("Previsão de vendas")
 
 # File uploaders for each CSV file
@@ -166,10 +165,10 @@ else:
     st.write("analise_vendas is not defined.")
 
 
-st.write("Columns in 'analise_vendas':", analise_vendas.columns)
+#st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
     # Prepare the features for prediction
-X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
+#X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 
     # Make predictions
 #predictions = model.predict(X)
