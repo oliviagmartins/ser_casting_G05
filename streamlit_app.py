@@ -74,26 +74,26 @@ st.write(type(qtd_feedback))
     
     # Merges
     #if 'qtd_campanha' in globals():
-        analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
-        analise_vendas.fillna(0, inplace=True)
-        analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
-        analise_vendas.fillna(0, inplace=True)
-        analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
-        analise_vendas.fillna(0, inplace=True)
-        analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
-        analise_vendas.fillna(0, inplace=True)
+        #analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
+        #analise_vendas.fillna(0, inplace=True)
+        #analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
+        #analise_vendas.fillna(0, inplace=True)
+        #analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
+        #analise_vendas.fillna(0, inplace=True)
+        #analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
+        #analise_vendas.fillna(0, inplace=True)
 
         # Display columns for debugging
-        st.write("Columns in analise_vendas after merges:", analise_vendas.columns)
+        #st.write("Columns in analise_vendas after merges:", analise_vendas.columns)
         
         # Filter columns
-        analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
-        st.write("Filtered analise_vendas:", analise_vendas.head())
+        #analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+        #st.write("Filtered analise_vendas:", analise_vendas.head())
 
-    else:
-        st.error("qtd_campanha is not defined.")
-else:
-    st.error("Por favor, faça upload dos arquivos.")
+    #else:
+        #st.error("qtd_campanha is not defined.")
+#else:
+    #st.error("Por favor, faça upload dos arquivos.")
 
 #st.write("Columns in analise_vendas:", analise_vendas.columns)
 
