@@ -169,7 +169,7 @@ else:
 st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
     # Prepare the features for prediction
-#X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 
     # Make predictions
 #predictions = model.predict(X)
