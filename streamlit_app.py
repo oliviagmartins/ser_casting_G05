@@ -1,30 +1,155 @@
 import streamlit as st
-import joblib
 import numpy as np
+import pandas as pd
+import joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from scipy import stats
+
+# Streamlit app UI
+st.title("Previsão de vendas")
+
+# File uploaders for each CSV file
+acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
+campanha = st.file_uploader("Upload do arquivo de campanha", type=["csv"], key="campanha")
+feedback = st.file_uploader("Upload do arquivo de feedback", type=["csv"], key="feedback")
+treinamento = st.file_uploader("Upload do arquivo de treinamento", type=["csv"], key="treinamento")
+vendas = st.file_uploader("Upload do arquivo de vendas", type=["csv"], key="vendas")
+
+# Read the files into DataFrames
+if acessos is not None:
+    df_acessos = pd.read_csv(acessos)
+    st.write("Preview do arquivo de acessos:")
+    st.dataframe(df_acessos)
+
+if campanha is not None:
+    df_campanha = pd.read_csv(campanha)
+    st.write("Preview do arquivo de campanha:")
+    st.dataframe(df_campanha)
+
+if feedback is not None:
+    df_feedback = pd.read_csv(feedback)
+    st.write("Preview do arquivo de feedback:")
+    st.dataframe(df_feedback)
+
+if treinamento is not None:
+    df_treinamento = pd.read_csv(treinamento)
+    st.write("Preview do arquivo de treinamento:")
+    st.dataframe(df_treinamento)
+
+if vendsa is not None:
+    df_vendas = pd.read_csv(vendas)
+    st.write("Preview do arquivo de vendas:")
+    st.dataframe(df_vendas)
+
+# Proceed with any further data processing or model predictions
+
+# Data Preparation
+if 'df_vendas' in globals():
+    vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
+    st.write("Summed Sales Data by Client Code:")
+
+if 'df_acessos' in globals():
+    acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
+    st.write("Summed Access Data by Client Code:")
+
+if 'df_feedback' in globals():
+    qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
+    qtd_feedback.rename(columns={'CLI_CODIGO': 'cli_codigo', 'Data': 'qtd_feedback'}, inplace=True)
+    st.write("Feedback Count by Client Code:")
+
+if 'df_campanha' in globals():
+    qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
+    qtd_campanha.rename(columns={'Cliente': 'cli_codigo', 'Campanha_Nome': 'qtd_campanha'}, inplace=True)
+    st.write("Campaign Count by Client Code:")
+
+if 'df_treinamento' in globals():
+    qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
+    qtd_treinamento = qtd_treinamento[['Cliente', 'Treinamento']]
+    qtd_treinamento.rename(columns={'Cliente': 'cli_codigo', 'Treinamento': 'qtd_treinamento'}, inplace=True)
+    st.write("Training Count by Client Code:")
+
+# Merging DataFrames
+if 'vendas_cliente' in globals() and 'acessos_cliente' in globals():
+    # Merge with access data
+    analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
+    analise_vendas.fillna(0, inplace=True)
+
+if 'qtd_treinamento' in globals():
+    # Merge with training data
+    analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+
+if 'qtd_campanha' in globals():
+    # Merge with campaign data
+    analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+
+if 'qtd_feedback' in globals():
+    # Merge with feedback data
+    analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+
+# Final merge for sales analysis
+analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+
+# Display the final merged DataFrame
+st.write("Final Merged Sales Data:")
+st.dataframe(analise_vendas)
 
 # Load the model from the pickle file
 model = joblib.load('random_forest_model.pkl')
 
-# Function to make predictions
-def make_prediction(input_data):
-    input_data = np.array(input_data)
-    if np.any(np.isnan(input_data)):
-        st.error("Input data contains missing values.")
-        returnNone
-    prediction = model.predict([input_data])
-    return prediction[0]
+st.write("Model loaded successfully!")
 
-# Streamlit app UI
-st.title("Previsão quantidade de vendas")
+# Assuming user uploads and data preparation is already handled
+if 'analise_vendas' in globals():
+    # Identify columns with string (object) dtype
+    object_cols = analise_vendas.select_dtypes(include=['object']).columns
 
-# Collect user inputs
-Vlr_Liquido = st.number_input("Insira o valor líquido")
-Quantidade_de_Acessos = st.number_input("Insira a quantidade de acessos")
-qtd_campanha = st.number_input("Insira a quantidade de campanha")
-qtd_treinamento = st.number_input("Insira a quantidade de treinamento")
-qtd_feedback = st.number_input("Insira a quantidade de feedback")
-# Add more input fields as needed# Make predictionif st.button("Predict"):
+    # Apply Label Encoding to each object column
+    label_encoders = {}
+    for col in object_cols:
+        le = LabelEncoder()
+        analise_vendas[col] = le.fit_transform(analise_vendas[col])
+        label_encoders[col] = le  # Store the encoder for later use if needed
 
-input_data = [Vlr_Liquido, Quantidade_de_Acessos, qtd_campanha, qtd_treinamento, qtd_feedback]  # Adjust this to match your model's input
-prediction = make_prediction(input_data)
-st.write(f"A quantidade de vendas prevista é: {prediction}")
+    # Apply Box-Cox transformations
+    for column in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
+        if column in analise_vendas.columns:
+            analise_vendas[column], lambda_ = stats.boxcox(analise_vendas[column] + 1)
+            st.write(f"Box-Cox transformation applied to {column}")
+
+    # Prepare the features for prediction
+    X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+    y = analise_vendas['Qtd_Vendas']
+
+    # Split the dataset into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Predict using the model
+    y_pred = model.predict(X_test)
+
+    # Display Feature Importances
+    importances = model.feature_importances_
+    feature_names = X.columns
+    feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+    feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
+
+    st.write("Feature Importances:")
+    st.dataframe(feature_importance_df)
+    st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
+
+    # Plot Predicted vs Actual Values
+    st.write("Predicted vs Actual Values:")
+    plt.figure(figsize=(8, 6))
+    plt.scatter(y_test, y_pred, alpha=0.5)
+    plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Line of perfect fit
+    plt.xlabel('Actual Values')
+    plt.ylabel('Predicted Values')
+    plt.title('Predicted vs Actual Values')
+    
+    # Render plot in Streamlit
+    st.pyplot(plt)
