@@ -64,8 +64,16 @@ if 'df_vendas' in globals() and 'df_acessos' in globals() and 'df_feedback' in g
     qtd_treinamento = qtd_treinamento[['Cliente','Treinamento']]
     qtd_treinamento.rename(columns={'Cliente':'cli_codigo','Treinamento':'qtd_treinamento'}, inplace=True)
 
+   
+st.write(type(vendas_cliente))
+st.write(type(acessos_cliente))
+st.write(type(qtd_treinamento))
+st.write(type(qtd_campanha))
+st.write(type(qtd_feedback))
+
+    
     # Merges
-    if 'qtd_campanha' in globals():
+    #if 'qtd_campanha' in globals():
         analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
         analise_vendas.fillna(0, inplace=True)
         analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
