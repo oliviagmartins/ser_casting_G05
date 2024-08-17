@@ -153,18 +153,6 @@ st.write("Model loaded successfully!")
 #except Exception as e:
  #   st.error(f"Error during transformation: {e}")
 
-
-#if 'analise_vendas' in globals():
-    # Identify columns with string (object) dtype
-    #object_cols = analise_vendas.select_dtypes(include=['object']).columns
-
-    # Apply Label Encoding to each object column
-    #label_encoders = {}
-    #for col in object_cols:
-        #le = LabelEncoder()
-        #analise_vendas[col] = le.fit_transform(analise_vendas[col])
-        #label_encoders[col] = le  # Store the encoder for later use if needed
-
     # Apply Box-Cox transformations
     #for column in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
         #if column in analise_vendas.columns:
@@ -200,13 +188,13 @@ st.dataframe(feature_importance_df)
 st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
 
     # Plot Predicted vs Actual Values
-st.write("Predicted vs Actual Values:")
-plt.figure(figsize=(8, 6))
-plt.scatter(y_test, y_pred, alpha=0.5)
-plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Line of perfect fit
-plt.xlabel('Actual Values')
-plt.ylabel('Predicted Values')
-plt.title('Predicted vs Actual Values')
+#st.write("Predicted vs Actual Values:")
+#plt.figure(figsize=(8, 6))
+#plt.scatter(y_test, y_pred, alpha=0.5)
+#plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Line of perfect fit
+#plt.xlabel('Actual Values')
+#plt.ylabel('Predicted Values')
+#plt.title('Predicted vs Actual Values')
     
     # Render plot in Streamlit
-st.pyplot(plt)
+#st.pyplot(plt)
