@@ -101,14 +101,12 @@ if 'df_treinamento' in globals():
 #else:
 #    st.error("Por favor, faça upload dos arquivos.")
 
-#st.write("Columns in analise_vendas:", analise_vendas.columns)
-
 # Final merge for sales analysis
 #analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
 
 # Display the final merged DataFrame
-#st.write("Final Merged Sales Data:")
-#st.dataframe(analise_vendas)
+st.write("Final Merged Sales Data:")
+st.dataframe(analise_vendas)
 
 # Load the model from the pickle file
 #model = joblib.load('random_forest_model.pkl')
