@@ -165,7 +165,10 @@ else:
     st.write("analise_vendas is not defined.")
 
 
-globals().get('analise_vendas')
+if globals().get('analise_vendas'):
+    st.write('analise_vendas is global')
+else:
+    st.write('analise_vendas is local')
 
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
