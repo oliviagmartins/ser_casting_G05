@@ -1,5 +1,11 @@
 import streamlit as st
 import pandas as pd
+import joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from scipy import stats
 
 # Streamlit app UI
 st.title("Previsão de vendas")
@@ -92,16 +98,57 @@ analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Qua
 st.write("Final Merged Sales Data:")
 st.dataframe(analise_vendas)
 
-# You can then use `analise_vendas` for model prediction or further analysis
+# Load the model from the pickle file
+model = joblib.load('random_forest_model.pkl')
 
-# Assuming 'analise_vendas' DataFrame is already available
+st.write("Model loaded successfully!")
+
+# Assuming user uploads and data preparation is already handled
 if 'analise_vendas' in globals():
-    # Apply Box-Cox transformation
+    # Identify columns with string (object) dtype
+    object_cols = analise_vendas.select_dtypes(include=['object']).columns
+
+    # Apply Label Encoding to each object column
+    label_encoders = {}
+    for col in object_cols:
+        le = LabelEncoder()
+        analise_vendas[col] = le.fit_transform(analise_vendas[col])
+        label_encoders[col] = le  # Store the encoder for later use if needed
+
+    # Apply Box-Cox transformations
     for column in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
         if column in analise_vendas.columns:
             analise_vendas[column], lambda_ = stats.boxcox(analise_vendas[column] + 1)
             st.write(f"Box-Cox transformation applied to {column}")
 
-    # Display the transformed DataFrame
-    st.write("Transformed Sales Data:")
-    st.dataframe(analise_vendas)
+    # Prepare the features for prediction
+    X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+    y = analise_vendas['Qtd_Vendas']
+
+    # Split the dataset into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Predict using the model
+    y_pred = model.predict(X_test)
+
+    # Display Feature Importances
+    importances = model.feature_importances_
+    feature_names = X.columns
+    feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+    feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
+
+    st.write("Feature Importances:")
+    st.dataframe(feature_importance_df)
+    st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
+
+    # Plot Predicted vs Actual Values
+    st.write("Predicted vs Actual Values:")
+    plt.figure(figsize=(8, 6))
+    plt.scatter(y_test, y_pred, alpha=0.5)
+    plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Line of perfect fit
+    plt.xlabel('Actual Values')
+    plt.ylabel('Predicted Values')
+    plt.title('Predicted vs Actual Values')
+    
+    # Render plot in Streamlit
+    st.pyplot(plt)
