@@ -166,26 +166,28 @@ else:
     st.write("analise_vendas is not defined.")
 
 
+st.write("Columns in 'analise_vendas':", analise_vendas.columns)
+
     # Prepare the features for prediction
-X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+#X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
 
     # Make predictions
-predictions = model.predict(X)
+#predictions = model.predict(X)
 
     # Display the predictions
-st.write("Predictions:")
-st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
+#st.write("Predictions:")
+#st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
 
 
 # Display Feature Importances
-importances = model.feature_importances_
-feature_names = X.columns
-feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
-feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
+#importances = model.feature_importances_
+#feature_names = X.columns
+#feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+#feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
 
-st.write("Feature Importances:")
-st.dataframe(feature_importance_df)
-st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
+#st.write("Feature Importances:")
+#st.dataframe(feature_importance_df)
+#st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
 
     # Plot Predicted vs Actual Values
 #st.write("Predicted vs Actual Values:")
