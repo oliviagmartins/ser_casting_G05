@@ -54,7 +54,7 @@ if vendas is not None:
 if 'df_vendas' in globals() and 'df_acessos' in globals() and 'df_feedback' in globals() and 'df_campanha' in globals() and 'df_treinamento' in globals():
     
     # Prepare DataFrames as before
-    vendas_cliente = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
+    vendas_cliente = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count').reset_index()
     acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
     qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
     qtd_feedback.rename(columns={'CLI_CODIGO':'cli_codigo','Data':'qtd_feedback'}, inplace=True)
