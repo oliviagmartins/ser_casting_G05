@@ -165,6 +165,8 @@ else:
     st.write("analise_vendas is not defined.")
 
 
+globals().get('analise_vendas')
+
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
     # Prepare the features for prediction
