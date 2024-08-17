@@ -5,9 +5,10 @@ import numpy as np
 # Load the model from the pickle file
 model = joblib.load('random_forest_model.pkl')
 
-# Function to make predictionsdefmake_prediction(input_data):
-prediction = model.predict([input_data])
-return prediction[0]
+# Function to make predictions
+defmake_prediction(input_data):
+  prediction = model.predict([input_data])
+  return prediction[0]
 
 # Streamlit app UI
 st.title("Previsão quantidade de vendas")
