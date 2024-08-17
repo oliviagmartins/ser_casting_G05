@@ -6,7 +6,7 @@ import numpy as np
 model = joblib.load('random_forest_model.pkl')
 
 # Function to make predictions
-defmake_prediction(input_data):
+def make_prediction(input_data):
     prediction = model.predict([input_data])
     return prediction[0]
 
