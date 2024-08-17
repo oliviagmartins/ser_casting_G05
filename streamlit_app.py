@@ -113,7 +113,27 @@ model = joblib.load('random_forest_model.pkl')
 
 st.write("Model loaded successfully!")
 
-st.write(analise_vendas.head())
+# Check the initial data
+st.write("Before transformation:")
+st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
+
+# Apply Box-Cox transformation
+try:
+    analise_vendas['Vlr_Liquido'], lambda_ = stats.boxcox(analise_vendas['Vlr_Liquido'] + 1)
+    analise_vendas['Qtd_Vendas'], lambda_ = stats.boxcox(analise_vendas['Qtd_Vendas'] + 1)
+    analise_vendas['Quantidade_de_Acessos'], lambda_ = stats.boxcox(analise_vendas['Quantidade_de_Acessos'] + 1)
+    analise_vendas['qtd_treinamento'], lambda_ = stats.boxcox(analise_vendas['qtd_treinamento'] + 1)
+    analise_vendas['qtd_campanha'], lambda_ = stats.boxcox(analise_vendas['qtd_campanha'] + 1)
+    analise_vendas['qtd_feedback'], lambda_ = stats.boxcox(analise_vendas['qtd_feedback'] + 1)
+    analise_vendas['N_Produtos'], lambda_ = stats.boxcox(analise_vendas['N_Produtos'] + 1)
+    analise_vendas['Vlr_Desconto'], lambda_ = stats.boxcox(analise_vendas['Vlr_Desconto'] + 1)
+    
+    # Check the transformed data
+    st.write("After transformation:")
+    st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
+except Exception as e:
+    st.error(f"Error during transformation: {e}")
+
 
 #if 'analise_vendas' in globals():
     # Identify columns with string (object) dtype
