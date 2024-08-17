@@ -113,6 +113,8 @@ model = joblib.load('random_forest_model.pkl')
 
 st.write("Model loaded successfully!")
 
+st.write(analise_vendas.head())
+
 #if 'analise_vendas' in globals():
     # Identify columns with string (object) dtype
     #object_cols = analise_vendas.select_dtypes(include=['object']).columns
