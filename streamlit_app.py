@@ -85,7 +85,7 @@ if 'df_vendas' in globals() and 'df_acessos' in globals() and 'df_feedback' in g
     else:
         st.error("qtd_campanha is not defined.")
 else:
-    st.error("One or more required DataFrames are not defined.")
+    st.error("Por favor, faça upload dos arquivos.")
 
 #st.write("Columns in analise_vendas:", analise_vendas.columns)
 
