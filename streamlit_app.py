@@ -97,7 +97,7 @@ if 'qtd_feedback' in globals():
     analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
     analise_vendas.fillna(0, inplace=True)
 
-st.write("Columns in analise_vendas:", analise_vendas.columns)
+#st.write("Columns in analise_vendas:", analise_vendas.columns)
 
 # Final merge for sales analysis
 #analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
