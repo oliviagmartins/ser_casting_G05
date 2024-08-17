@@ -114,26 +114,26 @@ model = joblib.load('random_forest_model.pkl')
 st.write("Model loaded successfully!")
 
 # Check the initial data
-st.write("Before transformation:")
-st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
+#st.write("Before transformation:")
+#st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
 
 # Check for constant columns
-constant_columns = [col for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto'] if analise_vendas[col].nunique() == 1]
+#constant_columns = [col for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto'] if analise_vendas[col].nunique() == 1]
 
-if constant_columns:
-    st.write(f"Columns with constant values (Box-Cox transformation skipped): {constant_columns}")
+#if constant_columns:
+#    st.write(f"Columns with constant values (Box-Cox transformation skipped): {constant_columns}")
 
 # Apply Box-Cox transformation
-for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
-    if col not in constant_columns:  # Apply only to non-constant columns
-        try:
-            analise_vendas[col], _ = stats.boxcox(analise_vendas[col] + 1)
-        except Exception as e:
-            st.error(f"Error during Box-Cox transformation for column {col}: {e}")
+#for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
+#    if col not in constant_columns:  # Apply only to non-constant columns
+#        try:
+#            analise_vendas[col], _ = stats.boxcox(analise_vendas[col] + 1)
+#        except Exception as e:
+#            st.error(f"Error during Box-Cox transformation for column {col}: {e}")
 
 # Check the transformed data
-st.write("After transformation:")
-st.write(analise_vendas.head())
+#st.write("After transformation:")
+#st.write(analise_vendas.head())
 
 
 # Apply Box-Cox transformation
@@ -172,14 +172,14 @@ st.write(analise_vendas.head())
             #st.write(f"Box-Cox transformation applied to {column}")
 
     # Prepare the features for prediction
-#X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
-#y = analise_vendas['Qtd_Vendas']
+X = analise_vendas.drop(columns=['Qtd_Vendas', 'cli_codigo', 'N_Produtos', 'Vlr_Liquido'])
+y = analise_vendas['Qtd_Vendas']
 
     # Split the dataset into training and testing sets
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Predict using the model
-#y_pred = model.predict(X_test)
+y_pred = model.predict(X_test)
 
     # Display Feature Importances
     #importances = model.feature_importances_
