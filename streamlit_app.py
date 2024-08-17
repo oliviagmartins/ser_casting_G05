@@ -117,14 +117,23 @@ st.write("Model loaded successfully!")
 st.write("Before transformation:")
 st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
 
-# List of columns to transform
-columns_to_transform = ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']
+# Check for constant columns
+constant_columns = [col for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto'] if analise_vendas[col].nunique() == 1]
 
-for col in columns_to_transform:
-    if analise_vendas[col].nunique() > 1:  # Check if column is not constant
-        analise_vendas[col], _ = stats.boxcox(analise_vendas[col] + 1)
-    else:
-        st.write(f"Skipping Box-Cox transformation for column: {col} (constant values)")
+if constant_columns:
+    st.write(f"Columns with constant values (Box-Cox transformation skipped): {constant_columns}")
+
+# Apply Box-Cox transformation
+for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
+    if col not in constant_columns:  # Apply only to non-constant columns
+        try:
+            analise_vendas[col], _ = stats.boxcox(analise_vendas[col] + 1)
+        except Exception as e:
+            st.error(f"Error during Box-Cox transformation for column {col}: {e}")
+
+# Check the transformed data
+st.write("After transformation:")
+st.write(analise_vendas.head())
 
 
 # Apply Box-Cox transformation
@@ -139,10 +148,10 @@ for col in columns_to_transform:
 #    analise_vendas['Vlr_Desconto'], lambda_ = stats.boxcox(analise_vendas['Vlr_Desconto'] + 1)
     
     # Check the transformed data
-    st.write("After transformation:")
-    st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
-except Exception as e:
-    st.error(f"Error during transformation: {e}")
+    #st.write("After transformation:")
+    #st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
+#except Exception as e:
+ #   st.error(f"Error during transformation: {e}")
 
 
 #if 'analise_vendas' in globals():
