@@ -172,11 +172,11 @@ st.write("Model loaded successfully!")
 X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 
     # Make predictions
-#predictions = model.predict(X)
+predictions = model.predict(X)
 
     # Display the predictions
-#st.write("Predictions:")
-#st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
+st.write("Predictions:")
+st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
 
 
 # Display Feature Importances
