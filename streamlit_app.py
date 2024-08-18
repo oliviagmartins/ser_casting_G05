@@ -77,7 +77,7 @@ if 'df_treinamento' in globals():
     st.dataframe(qtd_treinamento)
 
 
-    # Merges
+# Merges
     if 'qtd_campanha' in globals():
         analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
         analise_vendas.fillna(0, inplace=True)
@@ -87,18 +87,10 @@ if 'df_treinamento' in globals():
         analise_vendas.fillna(0, inplace=True)
         analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
         analise_vendas.fillna(0, inplace=True)
-
-        # Display columns for debugging
-   # st.write("Columns in analise_vendas after merges:", analise_vendas.columns)
         
         # Filter columns
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
     st.write("Filtered analise_vendas:", analise_vendas.head())
-
-#    else:
-#        st.error("qtd_campanha is not defined.")
-#else:
-#    st.error("Por favor, faça upload dos arquivos.")
 
 # Final merge for sales analysis
 #analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
@@ -106,9 +98,6 @@ if 'df_treinamento' in globals():
 # Display the final merged DataFrame
 #st.write("Final Merged Sales Data:")
 #st.dataframe(analise_vendas)
-
-# Load the model from the pickle file
-
 
 # Check the initial data
 #st.write("Before transformation:")
@@ -163,11 +152,13 @@ else:
     st.write("'my_variable' is not a global variable.")
 
     # Prepare the features for prediction
-X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
+
 model = joblib.load('random_forest_model.pkl')
 
 st.write("Model loaded successfully!")
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
+
+X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 
     # Make predictions
 predictions = model.predict(X)
@@ -188,13 +179,13 @@ st.dataframe(feature_importance_df)
 st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
 
     # Plot Predicted vs Actual Values
-#st.write("Predicted vs Actual Values:")
-#plt.figure(figsize=(8, 6))
-#plt.scatter(y_test, y_pred, alpha=0.5)
-#plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Line of perfect fit
-#plt.xlabel('Actual Values')
-#plt.ylabel('Predicted Values')
-#plt.title('Predicted vs Actual Values')
+st.write("Predicted vs Actual Values:")
+plt.figure(figsize=(8, 6))
+plt.scatter(y_test, y_pred, alpha=0.5)
+plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Line of perfect fit
+plt.xlabel('Actual Values')
+plt.ylabel('Predicted Values')
+plt.title('Predicted vs Actual Values')
     
     # Render plot in Streamlit
-#st.pyplot(plt)
+st.pyplot(plt)
