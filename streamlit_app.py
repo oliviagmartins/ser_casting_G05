@@ -162,14 +162,12 @@ if 'analise_vendas' in globals():
 else:
     st.write("'my_variable' is not a global variable.")
 
-
+    # Prepare the features for prediction
+X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 model = joblib.load('random_forest_model.pkl')
 
 st.write("Model loaded successfully!")
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
-
-    # Prepare the features for prediction
-X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 
     # Make predictions
 predictions = model.predict(X)
