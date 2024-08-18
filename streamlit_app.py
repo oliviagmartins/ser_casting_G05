@@ -177,15 +177,3 @@ feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True
 st.write("Feature Importances:")
 st.dataframe(feature_importance_df)
 st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
-
-    # Plot Predicted vs Actual Values
-st.write("Predicted vs Actual Values:")
-plt.figure(figsize=(8, 6))
-plt.scatter(y_test, y_pred, alpha=0.5)
-plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Line of perfect fit
-plt.xlabel('Actual Values')
-plt.ylabel('Predicted Values')
-plt.title('Predicted vs Actual Values')
-    
-    # Render plot in Streamlit
-st.pyplot(plt)
