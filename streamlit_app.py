@@ -11,11 +11,10 @@ from scipy import stats
 
 st.title("Previsão de vendas")
 
-import streamlit as st
 from pickle import load
 
 model = "random_forest_model"
-model = load(open(model_path, "rb"))
+model = load(open(random_forest_model, "rb"))
 st.info("Model loaded successfully!")
 
 
