@@ -112,7 +112,7 @@ if all(df_name in globals() for df_name in required_dfs):
     
     # Filter columns
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
-    st.write("Filtered analise_vendas:", analise_vendas.head())
+    st.write("Dados agrupados do cliente:", analise_vendas.head())
 
     # Make predictions
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
@@ -120,11 +120,11 @@ if all(df_name in globals() for df_name in required_dfs):
     # Predict with both models
     if model_amount:
         predictions_amount = model_amount.predict(X)
-        st.write("Predictions for Sales Amount:", predictions_amount)
+        st.write("Predição da quantidade de vendas:", predictions_amount)
 
     if model_value:
         predictions_value = model_value.predict(X)
-        st.write("Predictions for Sales Value:", predictions_value)
+        st.write("Predição do valor líquido:", predictions_value)
 
 else:
     st.write("Data is not fully loaded or prepared yet.")
