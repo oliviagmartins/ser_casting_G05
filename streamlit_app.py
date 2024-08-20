@@ -28,22 +28,6 @@ if response.status_code == 200:
     st.write("Tipo de modelo:", type(model))
 else:
     st.write("Falha em carregar o modelo.")
-st.title("Previsão de vendas")
-
-#model = pickle.load(open('random_forest_model.pkl','rb'))
-
-# URL of the pickle file in your GitHub repository
-pickle_url = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model.pkl'
-
-# Download the pickle file
-#response = requests.get(pickle_url)
-#if response.status_code == 200:
-#    pickle_file = io.BytesIO(response.content)
-#    model = pickle.load(pickle_file)
-#    st.write("Modelo carregado com sucesso!")
-#else:
-#    st.write("Falha em carregar o modelo.")
-
 
 st.write('teste')
 st.write("Tipo de modelo:", type(model))
