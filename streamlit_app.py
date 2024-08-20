@@ -20,12 +20,12 @@ st.markdown(
         align-items: center;
     }
     .logo-container {
-        margin-bottom: 10px; /* Adjust spacing as needed */
+        margin-bottom: 30px; /* Adjust spacing as needed */
     }
     </style>
     <div class="logos">
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_ser.png" width="200" alt="Company Logo">
+            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_ser.png" width="300" alt="Company Logo">
         </div>
         <div class="logo-container">
             <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_dnc.png" width="200" alt="School Logo">
