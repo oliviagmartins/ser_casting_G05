@@ -114,10 +114,10 @@ if all(df_name in globals() for df_name in required_dfs):
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
     st.write("Filtered analise_vendas:", analise_vendas.head())
 
-    # Make predictions
-    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
-
-    # Predict with both models
+    # Prepare feature matrix
+    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+    
+    # Make predictions and plot feature importance for Sales Amount Model
     if model_amount:
         predictions_amount = model_amount.predict(X)
         st.write("Predictions for Sales Amount:", predictions_amount)
@@ -137,6 +137,7 @@ if all(df_name in globals() for df_name in required_dfs):
         ax.set_ylabel('Importance')
         st.pyplot(fig)
 
+    # Make predictions and plot feature importance for Sales Value Model
     if model_value:
         predictions_value = model_value.predict(X)
         st.write("Predictions for Sales Value:", predictions_value)
@@ -157,6 +158,7 @@ if all(df_name in globals() for df_name in required_dfs):
 
 else:
     st.write("Data is not fully loaded or prepared yet.")
+
 
 
 #### ATÉ AQUI FUNCIONA ######
