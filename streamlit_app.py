@@ -133,19 +133,7 @@ def predict(analise_vendas, model):
     y_pred = model.predict(X)
     return y_pred
 
-# Streamlit app layout
-#st.title("Sales Prediction App")
-
-# File uploader for user to upload CSV
-#uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
-
-#if uploaded_file is not None:
-    # Read the uploaded CSV file
-#    analise_vendas = pd.read_csv(uploaded_file)
-
-    # Display the first few rows of the dataframe
-#    st.write("Preview of the uploaded data:")
-#    st.write(analise_vendas.head())
+st.write('teste')
 
     # Make predictions
     prediction = predict(analise_vendas, model)
