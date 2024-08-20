@@ -62,10 +62,6 @@ if vendas is not None:
     st.dataframe(df_vendas)
     df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
 
-
-
-
-#### ATÉ AQUI FUNCIONA ######
     # Data Preparation
     vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
     st.write("Summed Sales Data by Client Code:")
@@ -73,7 +69,6 @@ if vendas is not None:
 
 if 'df_acessos' in globals():
     acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
-    #acessos_cliente.rename(columns={'CLI_CODIGO': 'cli_codigo'}, inplace=True)
     st.write("Summed Access Data by Client Code:")
     st.dataframe(acessos_cliente)
 
@@ -113,13 +108,15 @@ if all(df_name in globals() for df_name in required_dfs):
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
     st.write("Filtered analise_vendas:", analise_vendas.head())
 
-    
+
+#### ATÉ AQUI FUNCIONA ######
+
     # Make predictions
-#    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
-#    predictions = model.predict(X)
-#    st.write("Predictions:", predictions)
-#else:
-#    st.write("Data is not fully loaded or prepared yet.")
+    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
+    predictions = model.predict(X)
+    st.write("Predictions:", predictions)
+else:
+    st.write("Data is not fully loaded or prepared yet.")
 
 #def predict(analise_vendas, model):
 #    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]  # Define your X variables here
