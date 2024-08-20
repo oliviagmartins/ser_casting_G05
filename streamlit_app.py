@@ -4,6 +4,7 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from scipy import stats
@@ -76,7 +77,6 @@ if 'df_treinamento' in globals():
     st.write("Training Count by Client Code:")
     st.dataframe(qtd_treinamento)
 
-
 # Merges
     if 'qtd_campanha' in globals():
         analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
@@ -114,8 +114,6 @@ else:
 
 #prediction = predict(analise_vendas, model)
 
-import pickle
-
 # Load your trained model (assuming you have it saved as a pickle file)
 @st.cache_resource
 def load_model():
@@ -136,13 +134,13 @@ def predict(analise_vendas, model):
 st.write('teste')
 
     # Make predictions
- #   prediction = predict(analise_vendas, model)
+prediction = predict(analise_vendas, model)
 
     # Add predictions to the dataframe
- #   analise_vendas['Predicted Sales'] = prediction
+analise_vendas['Predicted Sales'] = prediction
 
     # Display the dataframe with predictions
- #   st.write("Predicted vs Actual Sales:")
+st.write("Predicted vs Actual Sales:")
  #   st.write(analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha', 'Predicted Sales']])
 
 
