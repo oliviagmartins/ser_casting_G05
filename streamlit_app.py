@@ -14,8 +14,8 @@ from scipy import stats
 st.title("Previsão de Vendas")
 
 # URLs of the pickle files in your GitHub repository
-pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_amount.pkl'
-pickle_url_value = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_value.pkl'
+pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/rf_quantidade.pkl'
+pickle_url_value = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/rf_valor.pkl'
 
 # Download and load both pickle files
 def load_model(pickle_url):
