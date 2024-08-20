@@ -156,9 +156,20 @@ else:
 model = joblib.load('random_forest_model.pkl')
 
 st.write("Model loaded successfully!")
+
+def predict(analise_vendas, model):
+    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]  # Define your X variables here
+y_pred = model.predict(X)  # Use these variables to make predictions
+return y_pred
+
+prediction = predict(analise_vendas, model)
+
+
+
+
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
-st.write(analise_vendas.head())
+#st.write(analise_vendas.head())
 
 #X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 
