@@ -59,7 +59,7 @@ model_amount = load_model(pickle_url_amount)
 model_value = load_model(pickle_url_value)
 
 if model_amount and model_value:
-    st.write("Modelos carregados com sucesso!")
+    st.write("Modelos carregados com sucesso! Siga para o upload dos arquivos.")
 
 # File uploaders for each CSV file
 acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
