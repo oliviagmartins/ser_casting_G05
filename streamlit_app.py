@@ -29,9 +29,6 @@ if response.status_code == 200:
 else:
     st.write("Falha em carregar o modelo.")
 
-st.write('teste')
-st.write("Tipo de modelo:", type(model))
-
 # File uploaders for each CSV file
 #acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
 #campanha = st.file_uploader("Upload do arquivo de campanha", type=["csv"], key="campanha")
