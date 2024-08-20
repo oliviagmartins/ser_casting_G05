@@ -11,7 +11,6 @@ from scipy import stats
 
 st.title("Previsão de vendas")
 
-
 # Load the model
 with open("random_forest_model.pkl", "rb") as file:
     model = pickle.load(file)
@@ -48,12 +47,9 @@ if vendas is not None:
     df_vendas = pd.read_csv(vendas)
     st.write("Preview do arquivo de vendas:")
     st.dataframe(df_vendas)
-
-if vendas is not None:
     df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
 
-# Data Preparation
-if 'df_vendas' in globals():
+    # Data Preparation
     vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
     st.write("Summed Sales Data by Client Code:")
     st.dataframe(vendas_cliente)
@@ -83,34 +79,26 @@ if 'df_treinamento' in globals():
     st.dataframe(qtd_treinamento)
 
 # Merges
-    if 'qtd_campanha' in globals():
-        analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
-        analise_vendas.fillna(0, inplace=True)
-        analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
-        analise_vendas.fillna(0, inplace=True)
-        analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
-        analise_vendas.fillna(0, inplace=True)
-        analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
-        analise_vendas.fillna(0, inplace=True)
-        
-        # Filter columns
-#     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
-#     st.write("Filtered analise_vendas:", analise_vendas.head())
+if 'vendas_cliente' in globals() and 'acessos_cliente' in globals() and 'qtd_feedback' in globals() and 'qtd_campanha' in globals() and 'qtd_treinamento' in globals():
+    analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
+    analise_vendas.fillna(0, inplace=True)
+    analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+    analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+    analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+    
+    # Filter columns
+    analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+    st.write("Filtered analise_vendas:", analise_vendas.head())
 
-if 'analise_vendas' in globals():
-    st.write("'analise_vendas' is a global variable.")
-else:
-    st.write("'analise_vendas' is not a global variable.")
-
-    # Prepare the features for prediction
-
-if analise_vendas is not None:
     # Make predictions
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
     predictions = model.predict(X)
     st.write("Predictions:", predictions)
-
-#model = joblib.load('random_forest_model.pkl')
+else:
+    st.write("Data is not fully loaded or prepared yet.")
 
 #st.write("Model loaded successfully!")
 
