@@ -131,7 +131,7 @@ else:
 
 
 #### ATÉ AQUI FUNCIONA ######
-st.write(X)
+#st.write(X)
 #st.write(analise_vendas.head())
 
     # Display the predictions
