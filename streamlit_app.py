@@ -104,7 +104,7 @@ else:
 
     # Prepare the features for prediction
 
-if uploaded_file is not None:
+if analise_vendas is not None:
     # Make predictions
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
     predictions = model.predict(X)
