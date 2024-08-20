@@ -8,6 +8,7 @@ import pickle
 import requests
 import io
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from scipy import stats
 
