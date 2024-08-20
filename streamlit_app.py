@@ -92,59 +92,9 @@ if 'df_treinamento' in globals():
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
     st.write("Filtered analise_vendas:", analise_vendas.head())
 
-# Final merge for sales analysis
-#analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
-
 # Display the final merged DataFrame
 #st.write("Final Merged Sales Data:")
 #st.dataframe(analise_vendas)
-
-# Check the initial data
-#st.write("Before transformation:")
-#st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
-
-# Check for constant columns
-#constant_columns = [col for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto'] if analise_vendas[col].nunique() == 1]
-
-#if constant_columns:
-#    st.write(f"Columns with constant values (Box-Cox transformation skipped): {constant_columns}")
-
-# Apply Box-Cox transformation
-#for col in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
-#    if col not in constant_columns:  # Apply only to non-constant columns
-#        try:
-#            analise_vendas[col], _ = stats.boxcox(analise_vendas[col] + 1)
-#        except Exception as e:
-#            st.error(f"Error during Box-Cox transformation for column {col}: {e}")
-
-# Check the transformed data
-#st.write("After transformation:")
-#st.write(analise_vendas.head())
-
-
-# Apply Box-Cox transformation
-#try:
-#    analise_vendas['Vlr_Liquido'], lambda_ = stats.boxcox(analise_vendas['Vlr_Liquido'] + 1)
-#    analise_vendas['Qtd_Vendas'], lambda_ = stats.boxcox(analise_vendas['Qtd_Vendas'] + 1)
-#    analise_vendas['Quantidade_de_Acessos'], lambda_ = stats.boxcox(analise_vendas['Quantidade_de_Acessos'] + 1)
-#    analise_vendas['qtd_treinamento'], lambda_ = stats.boxcox(analise_vendas['qtd_treinamento'] + 1)
-#    analise_vendas['qtd_campanha'], lambda_ = stats.boxcox(analise_vendas['qtd_campanha'] + 1)
-#    analise_vendas['qtd_feedback'], lambda_ = stats.boxcox(analise_vendas['qtd_feedback'] + 1)
-#    analise_vendas['N_Produtos'], lambda_ = stats.boxcox(analise_vendas['N_Produtos'] + 1)
-#    analise_vendas['Vlr_Desconto'], lambda_ = stats.boxcox(analise_vendas['Vlr_Desconto'] + 1)
-    
-    # Check the transformed data
-    #st.write("After transformation:")
-    #st.write(analise_vendas[['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']].head())
-#except Exception as e:
- #   st.error(f"Error during transformation: {e}")
-
-    # Apply Box-Cox transformations
-    #for column in ['Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']:
-        #if column in analise_vendas.columns:
-            #analise_vendas[column], lambda_ = stats.boxcox(analise_vendas[column] + 1)
-            #st.write(f"Box-Cox transformation applied to {column}")
-
 
 if 'analise_vendas' in globals():
     st.write("'analise_vendas' is a global variable.")
@@ -153,18 +103,58 @@ else:
 
     # Prepare the features for prediction
 
-model = joblib.load('random_forest_model.pkl')
+#model = joblib.load('random_forest_model.pkl')
 
-st.write("Model loaded successfully!")
+#st.write("Model loaded successfully!")
 
+#def predict(analise_vendas, model):
+#    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]  # Define your X variables here
+#y_pred = model.predict(X)  # Use these variables to make predictions
+#    return y_pred
+
+#prediction = predict(analise_vendas, model)
+
+
+# Load your trained model (assuming you have it saved as a pickle file)
+@st.cache_resource
+def load_model():
+    with open('random_forest_model.pkl', 'rb') as file:
+        model = pickle.load(file)
+    return model
+
+model = load_model()
+
+# Define the prediction function
 def predict(analise_vendas, model):
-    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]  # Define your X variables here
-y_pred = model.predict(X)  # Use these variables to make predictions
+    # Define the features (X variables)
+    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]
+    # Make predictions
+    y_pred = model.predict(X)
     return y_pred
 
-prediction = predict(analise_vendas, model)
+# Streamlit app layout
+#st.title("Sales Prediction App")
 
+# File uploader for user to upload CSV
+#uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 
+#if uploaded_file is not None:
+    # Read the uploaded CSV file
+#    analise_vendas = pd.read_csv(uploaded_file)
+
+    # Display the first few rows of the dataframe
+#    st.write("Preview of the uploaded data:")
+#    st.write(analise_vendas.head())
+
+    # Make predictions
+    prediction = predict(analise_vendas, model)
+
+    # Add predictions to the dataframe
+    analise_vendas['Predicted Sales'] = prediction
+
+    # Display the dataframe with predictions
+    st.write("Predicted vs Actual Sales:")
+    st.write(analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha', 'Predicted Sales']])
 
 
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
