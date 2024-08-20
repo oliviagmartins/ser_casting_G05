@@ -115,21 +115,20 @@ if all(df_name in globals() for df_name in required_dfs):
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
     predictions = model.predict(X)
     st.write("Predictions:", predictions)
+
+        # Get feature importances
+        importances = model.feature_importances_
+        feature_names = X.columns
+        importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+        importance_df = importance_df.sort_values(by='Importance', ascending=False)
+
+        # Display feature importance
+        st.write("Feature Importances:")
+        st.dataframe(importance_df)
+
+
 else:
     st.write("Data is not fully loaded or prepared yet.")
-
-
-
-#prediction = predict(analise_vendas, model)
-
-
-# Define the prediction function
-#def predict(analise_vendas, model):
-    # Define the features (X variables)
-#    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]
-    # Make predictions
-#    y_pred = model.predict(X)
-#    return y_pred
 
 #st.write('teste')
 
@@ -148,10 +147,10 @@ else:
 
 
 # Display Feature Importances
-importances = model.feature_importances_
-feature_names = X.columns
-feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
-feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
+#importances = model.feature_importances_
+#feature_names = X.columns
+#feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+#feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
 
 #st.write("Feature Importances:")
 #st.dataframe(feature_importance_df)
