@@ -114,6 +114,7 @@ else:
 
 #prediction = predict(analise_vendas, model)
 
+import pickle
 
 # Load your trained model (assuming you have it saved as a pickle file)
 @st.cache_resource
