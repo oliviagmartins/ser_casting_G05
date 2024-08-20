@@ -129,6 +129,7 @@ model = load_model()
 
 st.write('teste')
 
+st.write('teste 2')
     # Make predictions
 #prediction = predict(analise_vendas, model)
 
