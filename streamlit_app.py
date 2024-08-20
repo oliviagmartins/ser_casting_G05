@@ -12,7 +12,7 @@ from sklearn.ensemble import RandomForestRegressor
 from scipy import stats
 
 # Display the company logo
-st.image('https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo.png', width=450)  # Adjust width as needed
+st.image('https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo.png', width=300)  # Adjust width as needed
 
 st.title("Previsão de Vendas")
 
