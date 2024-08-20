@@ -36,7 +36,8 @@ st.markdown(
 )
 
 st.title("Previsão de Vendas - Ser Performance")
-st.write("Bem vindo! Este aplicativo tem como objetivo prever a quantidade de vendas e valor líquido dos clientes da Ser Perfomance.
+st.subheader('Bem vindo!')
+st.write("Este aplicativo tem como objetivo prever a quantidade de vendas e valor líquido dos clientes da Ser Perfomance.
          Para usar, faça o upload dos arquivos abaixo. O aplicativo mostrará uma prévia dos arquivos enviados, uma tabela com o agrupamento dos dados e, por fim, o valor previsto de quantidade de vendas e valor líquido.")
 
 # URLs of the pickle files in your GitHub repository
