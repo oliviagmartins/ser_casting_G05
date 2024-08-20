@@ -109,7 +109,6 @@ if all(df_name in globals() for df_name in required_dfs):
     st.write("Filtered analise_vendas:", analise_vendas.head())
 
 
-#### ATÉ AQUI FUNCIONA ######
 
     # Make predictions
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
@@ -130,6 +129,10 @@ else:
     st.write("Data is not fully loaded or prepared yet.")
 
 st.write(X)
+
+
+
+#### ATÉ AQUI FUNCIONA ######
 
 #st.write(analise_vendas.head())
 
