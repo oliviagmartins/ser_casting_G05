@@ -136,14 +136,14 @@ def predict(analise_vendas, model):
 st.write('teste')
 
     # Make predictions
-    prediction = predict(analise_vendas, model)
+ #   prediction = predict(analise_vendas, model)
 
     # Add predictions to the dataframe
-    analise_vendas['Predicted Sales'] = prediction
+ #   analise_vendas['Predicted Sales'] = prediction
 
     # Display the dataframe with predictions
-    st.write("Predicted vs Actual Sales:")
-    st.write(analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha', 'Predicted Sales']])
+ #   st.write("Predicted vs Actual Sales:")
+ #   st.write(analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha', 'Predicted Sales']])
 
 
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
