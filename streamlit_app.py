@@ -70,32 +70,32 @@ if vendas is not None:
 
     # Data Preparation
     vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
-    st.write("Summed Sales Data by Client Code:")
-    st.dataframe(vendas_cliente)
+    #st.write("Summed Sales Data by Client Code:")
+    #st.dataframe(vendas_cliente)
 
 if 'df_acessos' in globals():
     acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
-    st.write("Summed Access Data by Client Code:")
-    st.dataframe(acessos_cliente)
+    #st.write("Summed Access Data by Client Code:")
+    #st.dataframe(acessos_cliente)
 
 if 'df_feedback' in globals():
     qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
     qtd_feedback.rename(columns={'CLI_CODIGO': 'cli_codigo', 'Data': 'qtd_feedback'}, inplace=True)
-    st.write("Feedback Count by Client Code:")
-    st.dataframe(qtd_feedback)
+    #st.write("Feedback Count by Client Code:")
+    #st.dataframe(qtd_feedback)
 
 if 'df_campanha' in globals():
     qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
     qtd_campanha.rename(columns={'Cliente': 'cli_codigo', 'Campanha_Nome': 'qtd_campanha'}, inplace=True)
-    st.write("Campaign Count by Client Code:")
-    st.dataframe(qtd_campanha)
+    #st.write("Campaign Count by Client Code:")
+    #st.dataframe(qtd_campanha)
 
 if 'df_treinamento' in globals():
     qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
     qtd_treinamento = qtd_treinamento[['Cliente', 'Treinamento']]
     qtd_treinamento.rename(columns={'Cliente': 'cli_codigo', 'Treinamento': 'qtd_treinamento'}, inplace=True)
-    st.write("Training Count by Client Code:")
-    st.dataframe(qtd_treinamento)
+    #st.write("Training Count by Client Code:")
+    #st.dataframe(qtd_treinamento)
 
 # Check if all necessary DataFrames are available
 required_dfs = ['vendas_cliente', 'acessos_cliente', 'qtd_feedback', 'qtd_campanha', 'qtd_treinamento']
