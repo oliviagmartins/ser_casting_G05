@@ -89,8 +89,8 @@ if 'df_treinamento' in globals():
         analise_vendas.fillna(0, inplace=True)
         
         # Filter columns
- analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
- st.write("Filtered analise_vendas:", analise_vendas.head())
+     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+     st.write("Filtered analise_vendas:", analise_vendas.head())
 
 if 'analise_vendas' in globals():
     st.write("'analise_vendas' is a global variable.")
@@ -120,23 +120,23 @@ def load_model():
 model = load_model()
 
 # Define the prediction function
-def predict(analise_vendas, model):
+#def predict(analise_vendas, model):
     # Define the features (X variables)
-    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]
+#    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]
     # Make predictions
-    y_pred = model.predict(X)
-    return y_pred
+#    y_pred = model.predict(X)
+#    return y_pred
 
 st.write('teste')
 
     # Make predictions
-prediction = predict(analise_vendas, model)
+#prediction = predict(analise_vendas, model)
 
     # Add predictions to the dataframe
-analise_vendas['Predicted Sales'] = prediction
+#analise_vendas['Predicted Sales'] = prediction
 
     # Display the dataframe with predictions
-st.write("Predicted vs Actual Sales:")
+#st.write("Predicted vs Actual Sales:")
  #   st.write(analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha', 'Predicted Sales']])
 
 
