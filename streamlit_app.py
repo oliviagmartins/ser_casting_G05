@@ -20,7 +20,7 @@ st.markdown(
         align-items: center;
     }
     .logo-container {
-        margin-bottom: 30px; /* Adjust spacing as needed */
+        margin-bottom: 400px; /* Adjust spacing as needed */
     }
     </style>
     <div class="logos">
