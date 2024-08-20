@@ -11,6 +11,11 @@ from scipy import stats
 
 st.title("Previsão de vendas")
 
+
+# Load the model
+with open("random_forest_model.pkl", "rb") as file:
+    model = pickle.load(file)
+    
 # File uploaders for each CSV file
 acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
 campanha = st.file_uploader("Upload do arquivo de campanha", type=["csv"], key="campanha")
