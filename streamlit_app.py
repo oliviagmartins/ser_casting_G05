@@ -11,22 +11,28 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from scipy import stats
 
-st.title("Previsão de vendas")
+st.title("Previsão de Vendas")
 
-# URL of the pickle file in your GitHub repository
-pickle_url = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model.pkl'
+# URLs of the pickle files in your GitHub repository
+pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_amount.pkl'
+pickle_url_value = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_value.pkl'
 
-# Download the pickle file
-response = requests.get(pickle_url)
-if response.status_code == 200:
-    pickle_file = io.BytesIO(response.content)
-    model = joblib.load(pickle_file)  # Load the model correctly
-    st.write("Modelo carregado com sucesso!")
+# Download and load both pickle files
+def load_model(pickle_url):
+    response = requests.get(pickle_url)
+    if response.status_code == 200:
+        pickle_file = io.BytesIO(response.content)
+        model = joblib.load(pickle_file)
+        return model
+    else:
+        st.write("Falha em carregar o modelo.")
+        return None
 
-    # Optionally, check the type of the model
- #   st.write("Tipo de modelo:", type(model))
-else:
-    st.write("Falha em carregar o modelo.")
+model_amount = load_model(pickle_url_amount)
+model_value = load_model(pickle_url_value)
+
+if model_amount and model_value:
+    st.write("Modelos carregados com sucesso!")
 
 # File uploaders for each CSV file
 acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
@@ -108,26 +114,20 @@ if all(df_name in globals() for df_name in required_dfs):
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
     st.write("Filtered analise_vendas:", analise_vendas.head())
 
-
-
     # Make predictions
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
-    predictions = model.predict(X)
-    st.write("Predictions:", predictions)
 
-        # Get feature importances
-     #importances = model.feature_importances_
-     #feature_names = X.columns
-     #importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
-     #importance_df = importance_df.sort_values(by='Importance', ascending=False)
+    # Predict with both models
+    if model_amount:
+        predictions_amount = model_amount.predict(X)
+        st.write("Predictions for Sales Amount:", predictions_amount)
 
-        # Display feature importance
-     #st.write("Feature Importances:")
-     #st.dataframe(importance_df)
+    if model_value:
+        predictions_value = model_value.predict(X)
+        st.write("Predictions for Sales Value:", predictions_value)
 
 else:
     st.write("Data is not fully loaded or prepared yet.")
-
 
 
 #### ATÉ AQUI FUNCIONA ######
