@@ -29,7 +29,7 @@ else:
     st.write("Falha em carregar o modelo.")
 
 
-#st.write("Tipo de modelo:", type(model))
+st.write("Tipo de modelo:", type(model))
 
 # File uploaders for each CSV file
 #acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
