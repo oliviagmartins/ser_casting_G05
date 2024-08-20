@@ -14,8 +14,8 @@ from scipy import stats
 st.title("Previsão de Vendas")
 
 # URLs of the pickle files in your GitHub repository
-pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/rf_quantidade.pkl'
-pickle_url_value = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/rf_valor.pkl'
+pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_amount.pkl'
+pickle_url_value = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_value.pkl'
 
 # Download and load both pickle files
 def load_model(pickle_url):
@@ -121,10 +121,39 @@ if all(df_name in globals() for df_name in required_dfs):
     if model_amount:
         predictions_amount = model_amount.predict(X)
         st.write("Predictions for Sales Amount:", predictions_amount)
+        
+        # Feature importance
+        feature_importances_amount = model_amount.feature_importances_
+        features = X.columns
+        importance_df_amount = pd.DataFrame({'Feature': features, 'Importance': feature_importances_amount})
+        importance_df_amount = importance_df_amount.sort_values(by='Importance', ascending=False)
+        st.write("Feature Importances for Sales Amount Model:")
+        st.dataframe(importance_df_amount)
+        
+        # Plot feature importance
+        fig, ax = plt.subplots()
+        importance_df_amount.plot(kind='bar', x='Feature', y='Importance', ax=ax)
+        ax.set_title('Feature Importance - Sales Amount Model')
+        ax.set_ylabel('Importance')
+        st.pyplot(fig)
 
     if model_value:
         predictions_value = model_value.predict(X)
         st.write("Predictions for Sales Value:", predictions_value)
+        
+        # Feature importance
+        feature_importances_value = model_value.feature_importances_
+        importance_df_value = pd.DataFrame({'Feature': features, 'Importance': feature_importances_value})
+        importance_df_value = importance_df_value.sort_values(by='Importance', ascending=False)
+        st.write("Feature Importances for Sales Value Model:")
+        st.dataframe(importance_df_value)
+        
+        # Plot feature importance
+        fig, ax = plt.subplots()
+        importance_df_value.plot(kind='bar', x='Feature', y='Importance', ax=ax)
+        ax.set_title('Feature Importance - Sales Value Model')
+        ax.set_ylabel('Importance')
+        st.pyplot(fig)
 
 else:
     st.write("Data is not fully loaded or prepared yet.")
@@ -132,12 +161,6 @@ else:
 
 #### ATÉ AQUI FUNCIONA ######
 #st.write(X)
-#st.write(analise_vendas.head())
-
-    # Display the predictions
-#st.write("Predictions:")
-#st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
-
 
 # Display Feature Importances
 #importances = model.feature_importances_
