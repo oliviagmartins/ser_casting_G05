@@ -129,13 +129,6 @@ if all(df_name in globals() for df_name in required_dfs):
         importance_df_amount = importance_df_amount.sort_values(by='Importance', ascending=False)
         st.write("Feature Importances for Sales Amount Model:")
         st.dataframe(importance_df_amount)
-        
-        # Plot feature importance
-        fig, ax = plt.subplots()
-        importance_df_amount.plot(kind='bar', x='Feature', y='Importance', ax=ax)
-        ax.set_title('Feature Importance - Sales Amount Model')
-        ax.set_ylabel('Importance')
-        st.pyplot(fig)
 
     # Make predictions and plot feature importance for Sales Value Model
     if model_value:
@@ -148,13 +141,6 @@ if all(df_name in globals() for df_name in required_dfs):
         importance_df_value = importance_df_value.sort_values(by='Importance', ascending=False)
         st.write("Feature Importances for Sales Value Model:")
         st.dataframe(importance_df_value)
-        
-        # Plot feature importance
-        fig, ax = plt.subplots()
-        importance_df_value.plot(kind='bar', x='Feature', y='Importance', ax=ax)
-        ax.set_title('Feature Importance - Sales Value Model')
-        ax.set_ylabel('Importance')
-        st.pyplot(fig)
 
 else:
     st.write("Data is not fully loaded or prepared yet.")
