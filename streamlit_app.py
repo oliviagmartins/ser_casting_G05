@@ -118,21 +118,10 @@ if all(df_name in globals() for df_name in required_dfs):
 else:
     st.write("Data is not fully loaded or prepared yet.")
 
-#def predict(analise_vendas, model):
-#    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]  # Define your X variables here
-#y_pred = model.predict(X)  # Use these variables to make predictions
-#    return y_pred
+
 
 #prediction = predict(analise_vendas, model)
 
-# Load your trained model (assuming you have it saved as a pickle file)
-#@st.cache_resource
-#def load_model():
-#    with open('random_forest_model.pkl', 'rb') as file:
-#        model = pickle.load(file)
-#    return model
-
-#model = load_model()
 
 # Define the prediction function
 #def predict(analise_vendas, model):
@@ -144,13 +133,6 @@ else:
 
 #st.write('teste')
 
-#st.write('teste 2')
-    # Make predictions
-#prediction = predict(analise_vendas, model)
-
-    # Add predictions to the dataframe
-#analise_vendas['Predicted Sales'] = prediction
-
     # Display the dataframe with predictions
 #st.write("Predicted vs Actual Sales:")
  #   st.write(analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha', 'Predicted Sales']])
@@ -160,21 +142,16 @@ else:
 
 #st.write(analise_vendas.head())
 
-#X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
-
-    # Make predictions
-#predictions = model.predict(X)
-
     # Display the predictions
 #st.write("Predictions:")
 #st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
 
 
 # Display Feature Importances
-#importances = model.feature_importances_
-#feature_names = X.columns
-#feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
-#feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
+importances = model.feature_importances_
+feature_names = X.columns
+feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
 
 #st.write("Feature Importances:")
 #st.dataframe(feature_importance_df)
