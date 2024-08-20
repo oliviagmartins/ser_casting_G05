@@ -111,13 +111,13 @@ else:
 #prediction = predict(analise_vendas, model)
 
 # Load your trained model (assuming you have it saved as a pickle file)
-@st.cache_resource
-def load_model():
-    with open('random_forest_model.pkl', 'rb') as file:
-        model = pickle.load(file)
-    return model
+#@st.cache_resource
+#def load_model():
+#    with open('random_forest_model.pkl', 'rb') as file:
+#        model = pickle.load(file)
+#    return model
 
-model = load_model()
+#model = load_model()
 
 # Define the prediction function
 #def predict(analise_vendas, model):
@@ -127,9 +127,9 @@ model = load_model()
 #    y_pred = model.predict(X)
 #    return y_pred
 
-st.write('teste')
+#st.write('teste')
 
-st.write('teste 2')
+#st.write('teste 2')
     # Make predictions
 #prediction = predict(analise_vendas, model)
 
