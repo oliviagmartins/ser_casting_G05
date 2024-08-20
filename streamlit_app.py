@@ -14,8 +14,8 @@ from scipy import stats
 st.title("Previsão de Vendas")
 
 # URLs of the pickle files in your GitHub repository
-pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_amount.pkl'
-pickle_url_value = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model_value.pkl'
+pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/rf_quantidade.pkl'
+pickle_url_value = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/rf_valor.pkl'
 
 # Download and load both pickle files
 def load_model(pickle_url):
@@ -114,41 +114,30 @@ if all(df_name in globals() for df_name in required_dfs):
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
     st.write("Filtered analise_vendas:", analise_vendas.head())
 
-    # Prepare feature matrix
-    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
-    
-    # Make predictions and plot feature importance for Sales Amount Model
+    # Make predictions
+    X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
+
+    # Predict with both models
     if model_amount:
         predictions_amount = model_amount.predict(X)
         st.write("Predictions for Sales Amount:", predictions_amount)
-        
-        # Feature importance
-        feature_importances_amount = model_amount.feature_importances_
-        features = X.columns
-        importance_df_amount = pd.DataFrame({'Feature': features, 'Importance': feature_importances_amount})
-        importance_df_amount = importance_df_amount.sort_values(by='Importance', ascending=False)
-        st.write("Feature Importances for Sales Amount Model:")
-        st.dataframe(importance_df_amount)
 
-    # Make predictions and plot feature importance for Sales Value Model
     if model_value:
         predictions_value = model_value.predict(X)
         st.write("Predictions for Sales Value:", predictions_value)
-        
-        # Feature importance
-        feature_importances_value = model_value.feature_importances_
-        importance_df_value = pd.DataFrame({'Feature': features, 'Importance': feature_importances_value})
-        importance_df_value = importance_df_value.sort_values(by='Importance', ascending=False)
-        st.write("Feature Importances for Sales Value Model:")
-        st.dataframe(importance_df_value)
 
 else:
     st.write("Data is not fully loaded or prepared yet.")
 
 
-
 #### ATÉ AQUI FUNCIONA ######
 #st.write(X)
+#st.write(analise_vendas.head())
+
+    # Display the predictions
+#st.write("Predictions:")
+#st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
+
 
 # Display Feature Importances
 #importances = model.feature_importances_
