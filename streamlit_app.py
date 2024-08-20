@@ -25,10 +25,10 @@ st.markdown(
     </style>
     <div class="logos">
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_ser.png" width="150" alt="Company Logo">
+            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_ser.png" width="200" alt="Company Logo">
         </div>
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_dnc.png" width="150" alt="School Logo">
+            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_dnc.png" width="200" alt="School Logo">
         </div>
     </div>
     """,
