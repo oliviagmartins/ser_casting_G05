@@ -37,8 +37,8 @@ st.markdown(
 
 st.title("Previsão de Vendas - Ser Performance")
 st.subheader('Bem vindo!')
-st.write("Este aplicativo tem como objetivo prever a quantidade de vendas e valor líquido dos clientes da Ser Perfomance.
-         Para usar, faça o upload dos arquivos abaixo. O aplicativo mostrará uma prévia dos arquivos enviados, uma tabela com o agrupamento dos dados e, por fim, o valor previsto de quantidade de vendas e valor líquido.")
+st.write("Este aplicativo tem como objetivo prever a quantidade de vendas e valor líquido dos clientes da Ser Perfomance.")
+st.write("Para usar, faça o upload dos arquivos abaixo. O aplicativo mostrará uma prévia dos arquivos enviados, uma tabela com o agrupamento dos dados e, por fim, o valor previsto de quantidade de vendas e valor líquido.")
 
 # URLs of the pickle files in your GitHub repository
 pickle_url_amount = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/rf_quantidade.pkl'
