@@ -56,7 +56,7 @@ if vendas is not None:
 
 if 'df_acessos' in globals():
     acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
-    acessos_cliente.rename(columns={'CLI_CODIGO': 'cli_codigo'}, inplace=True)
+   # acessos_cliente.rename(columns={'CLI_CODIGO': 'cli_codigo'}, inplace=True)
     st.write("Summed Access Data by Client Code:")
     st.dataframe(acessos_cliente)
 
