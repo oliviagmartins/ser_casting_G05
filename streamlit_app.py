@@ -151,7 +151,7 @@ if all(df_name in globals() for df_name in required_dfs):
         st.write("Predição do valor líquido:", predictions_value)
 
 else:
-    st.write("Data is not fully loaded or prepared yet.")
+    st.write("Dados não foram carregados ou preparados ainda.")
 
 
 #### ATÉ AQUI FUNCIONA ######
