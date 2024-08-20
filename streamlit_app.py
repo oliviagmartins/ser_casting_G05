@@ -11,15 +11,29 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from scipy import stats
 
-# Display the company logo
-# Create two columns for vertical alignment
-col1, col2 = st.columns(1)
-
-with col1:
-    st.image('https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_ser.png', width=300)  # Adjust width as needed
-
-with col2:
-    st.image('https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_dnc.jpg', width=150)  # Adjust width as needed
+st.markdown(
+    """
+    <style>
+    .logos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .logo-container {
+        margin-bottom: 10px; /* Adjust spacing as needed */
+    }
+    </style>
+    <div class="logos">
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_ser.png" width="150" alt="Company Logo">
+        </div>
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/logo_dnc.png" width="150" alt="School Logo">
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 st.title("Previsão de Vendas")
 
