@@ -11,7 +11,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from scipy import stats
 
-
 st.title("Previsão de vendas")
 
 # URL of the pickle file in your GitHub repository
@@ -29,9 +28,6 @@ if response.status_code == 200:
 else:
     st.write("Falha em carregar o modelo.")
 
-
-#### ATÉ AQUI FUNCIONA ######
-
 # File uploaders for each CSV file
 acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
 campanha = st.file_uploader("Upload do arquivo de campanha", type=["csv"], key="campanha")
@@ -39,32 +35,35 @@ feedback = st.file_uploader("Upload do arquivo de feedback", type=["csv"], key="
 treinamento = st.file_uploader("Upload do arquivo de treinamento", type=["csv"], key="treinamento")
 vendas = st.file_uploader("Upload do arquivo de vendas", type=["csv"], key="vendas")
 
+
+#### ATÉ AQUI FUNCIONA ######
+
 # Read the files into DataFrames
-#if acessos is not None:
-#    df_acessos = pd.read_csv(acessos)
-#    st.write("Preview do arquivo de acessos:")
-#    st.dataframe(df_acessos)
+if acessos is not None:
+    df_acessos = pd.read_csv(acessos)
+    st.write("Preview do arquivo de acessos:")
+    st.dataframe(df_acessos)
 
-#if campanha is not None:
-#    df_campanha = pd.read_csv(campanha)
-#    st.write("Preview do arquivo de campanha:")
-#    st.dataframe(df_campanha)
+if campanha is not None:
+    df_campanha = pd.read_csv(campanha)
+    st.write("Preview do arquivo de campanha:")
+    st.dataframe(df_campanha)
 
-#if feedback is not None:
-#    df_feedback = pd.read_csv(feedback)
-#    st.write("Preview do arquivo de feedback:")
-#    st.dataframe(df_feedback)
+if feedback is not None:
+    df_feedback = pd.read_csv(feedback)
+    st.write("Preview do arquivo de feedback:")
+    st.dataframe(df_feedback)
 
-#if treinamento is not None:
-#    df_treinamento = pd.read_csv(treinamento)
-#    st.write("Preview do arquivo de treinamento:")
-#    st.dataframe(df_treinamento)
+if treinamento is not None:
+    df_treinamento = pd.read_csv(treinamento)
+    st.write("Preview do arquivo de treinamento:")
+    st.dataframe(df_treinamento)
 
-#if vendas is not None:
-#    df_vendas = pd.read_csv(vendas)
-#    st.write("Preview do arquivo de vendas:")
-#    st.dataframe(df_vendas)
-#    df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
+if vendas is not None:
+    df_vendas = pd.read_csv(vendas)
+    st.write("Preview do arquivo de vendas:")
+    st.dataframe(df_vendas)
+    df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
 
     # Data Preparation
  #   vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
