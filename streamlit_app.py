@@ -147,9 +147,9 @@ if 'df_treinamento' in globals():
 
 
 if 'analise_vendas' in globals():
-    st.write("'my_variable' is a global variable.")
+    st.write("'analise_vendas' is a global variable.")
 else:
-    st.write("'my_variable' is not a global variable.")
+    st.write("'analise_vendas' is not a global variable.")
 
     # Prepare the features for prediction
 
@@ -158,22 +158,24 @@ model = joblib.load('random_forest_model.pkl')
 st.write("Model loaded successfully!")
 #st.write("Columns in 'analise_vendas':", analise_vendas.columns)
 
-X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
+st.write(analise_vendas.head())
+
+#X = analise_vendas.drop(columns=['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos'])
 
     # Make predictions
-predictions = model.predict(X)
+#predictions = model.predict(X)
 
     # Display the predictions
-st.write("Predictions:")
-st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
+#st.write("Predictions:")
+#st.dataframe(pd.DataFrame(predictions, columns=['Predicted_Qtd_Vendas']))
 
 
 # Display Feature Importances
-importances = model.feature_importances_
-feature_names = X.columns
-feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
-feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
+#importances = model.feature_importances_
+#feature_names = X.columns
+#feature_importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+#feature_importance_df.sort_values(by='Importance', ascending=False, inplace=True)
 
-st.write("Feature Importances:")
-st.dataframe(feature_importance_df)
-st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
+#st.write("Feature Importances:")
+#st.dataframe(feature_importance_df)
+#st.bar_chart(feature_importance_df.set_index('Feature')['Importance'])
