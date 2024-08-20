@@ -5,6 +5,8 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
+import requests
+import io
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from scipy import stats
@@ -13,10 +15,8 @@ st.title("Previsão de vendas")
 
 #model = pickle.load(open('random_forest_model.pkl','rb'))
 
-#st.write("Type of model:", type(model))
 
-import requests
-import io
+
 
 # URL of the pickle file in your GitHub repository
 pickle_url = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model.pkl'
@@ -26,7 +26,7 @@ response = requests.get(pickle_url)
 if response.status_code == 200:
     pickle_file = io.BytesIO(response.content)
     model = pickle.load(pickle_file)
-    st.write("Model loaded successfully!")
+    st.write("Modelo carregado com sucesso!")
 
     # Example: Use the model to make predictions
     # input_features = ...
@@ -34,7 +34,10 @@ if response.status_code == 200:
     # Example: prediction = model.predict(input_features)
     # st.write("Prediction:", prediction)
 else:
-    st.write("Failed to download the pickle file.")
+    st.write("Falha em carregar o modelo.")
+
+
+st.write("Tipo de modelo:", type(model))
 
 # File uploaders for each CSV file
 acessos = st.file_uploader("Upload do arquivo de acessos", type=["csv"], key="acessos")
