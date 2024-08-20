@@ -128,12 +128,10 @@ if all(df_name in globals() for df_name in required_dfs):
 else:
     st.write("Data is not fully loaded or prepared yet.")
 
-st.write(X)
-
 
 
 #### ATÉ AQUI FUNCIONA ######
-
+st.write(X)
 #st.write(analise_vendas.head())
 
     # Display the predictions
