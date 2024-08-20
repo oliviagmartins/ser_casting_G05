@@ -24,7 +24,7 @@ if response.status_code == 200:
     st.write("Modelo carregado com sucesso!")
 
     # Optionally, check the type of the model
-    st.write("Tipo de modelo:", type(model))
+ #   st.write("Tipo de modelo:", type(model))
 else:
     st.write("Falha em carregar o modelo.")
 
@@ -129,14 +129,7 @@ if all(df_name in globals() for df_name in required_dfs):
 else:
     st.write("Data is not fully loaded or prepared yet.")
 
-#st.write('teste')
-
-    # Display the dataframe with predictions
-#st.write("Predicted vs Actual Sales:")
- #   st.write(analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha', 'Predicted Sales']])
-
-
-#st.write("Columns in 'analise_vendas':", analise_vendas.columns)
+st.write(X)
 
 #st.write(analise_vendas.head())
 
