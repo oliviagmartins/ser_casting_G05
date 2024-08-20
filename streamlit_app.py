@@ -56,6 +56,7 @@ if vendas is not None:
 
 if 'df_acessos' in globals():
     acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
+    acessos_cliente.rename(columns={'CLI_CODIGO': 'cli_codigo'}, inplace=True)
     st.write("Summed Access Data by Client Code:")
     st.dataframe(acessos_cliente)
 
@@ -78,8 +79,10 @@ if 'df_treinamento' in globals():
     st.write("Training Count by Client Code:")
     st.dataframe(qtd_treinamento)
 
-# Merges
-if 'vendas_cliente' in globals() and 'acessos_cliente' in globals() and 'qtd_feedback' in globals() and 'qtd_campanha' in globals() and 'qtd_treinamento' in globals():
+# Check if all necessary DataFrames are available
+required_dfs = ['vendas_cliente', 'acessos_cliente', 'qtd_feedback', 'qtd_campanha', 'qtd_treinamento']
+if all(df_name in globals() for df_name in required_dfs):
+    # Merges
     analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
     analise_vendas.fillna(0, inplace=True)
     analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
@@ -99,6 +102,7 @@ if 'vendas_cliente' in globals() and 'acessos_cliente' in globals() and 'qtd_fee
     st.write("Predictions:", predictions)
 else:
     st.write("Data is not fully loaded or prepared yet.")
+
 
 #st.write("Model loaded successfully!")
 
