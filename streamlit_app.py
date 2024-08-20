@@ -96,6 +96,9 @@ if all(df_name in globals() for df_name in required_dfs):
     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
     st.write("Filtered analise_vendas:", analise_vendas.head())
 
+
+st.write("Type of model:", type(model))
+    
     # Make predictions
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]  # Select features used in training
     predictions = model.predict(X)
