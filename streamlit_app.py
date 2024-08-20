@@ -16,9 +16,6 @@ st.title("Previsão de vendas")
 
 #model = pickle.load(open('random_forest_model.pkl','rb'))
 
-
-
-
 # URL of the pickle file in your GitHub repository
 pickle_url = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/main/random_forest_model.pkl'
 
@@ -26,7 +23,7 @@ pickle_url = 'https://raw.githubusercontent.com/oliviagmartins/ser_casting_G05/m
 response = requests.get(pickle_url)
 if response.status_code == 200:
     pickle_file = io.BytesIO(response.content)
-    model = pickle.load(pickle_file)
+    model = pickle_file.best_estimator_
     st.write("Modelo carregado com sucesso!")
 
     # Example: Use the model to make predictions
