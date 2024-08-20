@@ -160,7 +160,7 @@ st.write("Model loaded successfully!")
 def predict(analise_vendas, model):
     X = analise_vendas[['Quantidade_de_Acessos', 'qtd_treinamento', 'Vlr_Desconto', 'qtd_feedback', 'N_Produtos', 'qtd_campanha']]  # Define your X variables here
 y_pred = model.predict(X)  # Use these variables to make predictions
-return y_pred
+    return y_pred
 
 prediction = predict(analise_vendas, model)
 
