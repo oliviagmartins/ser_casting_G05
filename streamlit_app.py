@@ -117,15 +117,14 @@ if all(df_name in globals() for df_name in required_dfs):
     st.write("Predictions:", predictions)
 
         # Get feature importances
-     importances = model.feature_importances_
-     feature_names = X.columns
-     importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
-     importance_df = importance_df.sort_values(by='Importance', ascending=False)
+     #importances = model.feature_importances_
+     #feature_names = X.columns
+     #importance_df = pd.DataFrame({'Feature': feature_names, 'Importance': importances})
+     #importance_df = importance_df.sort_values(by='Importance', ascending=False)
 
         # Display feature importance
-     st.write("Feature Importances:")
-     st.dataframe(importance_df)
-
+     #st.write("Feature Importances:")
+     #st.dataframe(importance_df)
 
 else:
     st.write("Data is not fully loaded or prepared yet.")
