@@ -16,7 +16,7 @@ st.markdown(
     <style>
     .logos {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
     }
     .logo-container {
