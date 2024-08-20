@@ -89,8 +89,8 @@ if 'df_treinamento' in globals():
         analise_vendas.fillna(0, inplace=True)
         
         # Filter columns
-     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
-     st.write("Filtered analise_vendas:", analise_vendas.head())
+#     analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+#     st.write("Filtered analise_vendas:", analise_vendas.head())
 
 if 'analise_vendas' in globals():
     st.write("'analise_vendas' is a global variable.")
