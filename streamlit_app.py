@@ -12,10 +12,8 @@ from scipy import stats
 st.title("Previsão de vendas")
 
 # Load the model
-with open("random_forest_model.pkl", "rb") as file:
+with open("random_forest_model.pkl") as file:
     model = pickle.load(file)
-
-
 
 st.write("Type of model:", type(model))
 
