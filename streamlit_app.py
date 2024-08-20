@@ -4,15 +4,20 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pickle
+from pickle import load
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from scipy import stats
 
 st.title("Previsão de vendas")
 
-# Load the model
-model = joblib.load(random_forest_model.pkl)
+import streamlit as st
+from pickle import load
+
+model = "random_forest_model"
+model = load(open(model_path, "rb"))
+st.info("Model loaded successfully!")
+
 
 st.write("Type of model:", type(model))
 
