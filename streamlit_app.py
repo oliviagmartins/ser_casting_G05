@@ -35,9 +35,6 @@ feedback = st.file_uploader("Upload do arquivo de feedback", type=["csv"], key="
 treinamento = st.file_uploader("Upload do arquivo de treinamento", type=["csv"], key="treinamento")
 vendas = st.file_uploader("Upload do arquivo de vendas", type=["csv"], key="vendas")
 
-
-#### ATÉ AQUI FUNCIONA ######
-
 # Read the files into DataFrames
 if acessos is not None:
     df_acessos = pd.read_csv(acessos)
@@ -65,52 +62,56 @@ if vendas is not None:
     st.dataframe(df_vendas)
     df_vendas['Qtd_Vendas'] = df_vendas.groupby('cli_codigo')['cli_codigo'].transform('count')
 
+
+
+
+#### ATÉ AQUI FUNCIONA ######
     # Data Preparation
- #   vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
- #   st.write("Summed Sales Data by Client Code:")
- #   st.dataframe(vendas_cliente)
+    vendas_cliente = df_vendas.groupby('cli_codigo')[['Vlr_Liquido', 'Qtd_Vendas', 'N_Produtos', 'Vlr_Desconto']].sum().reset_index()
+    st.write("Summed Sales Data by Client Code:")
+    st.dataframe(vendas_cliente)
 
-#if 'df_acessos' in globals():
-#    acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
-   # acessos_cliente.rename(columns={'CLI_CODIGO': 'cli_codigo'}, inplace=True)
-#    st.write("Summed Access Data by Client Code:")
-#    st.dataframe(acessos_cliente)
+if 'df_acessos' in globals():
+    acessos_cliente = df_acessos.groupby('CLI_CODIGO')['Quantidade_de_Acessos'].sum().reset_index()
+    acessos_cliente.rename(columns={'CLI_CODIGO': 'cli_codigo'}, inplace=True)
+    st.write("Summed Access Data by Client Code:")
+    st.dataframe(acessos_cliente)
 
-#if 'df_feedback' in globals():
-#    qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
-#    qtd_feedback.rename(columns={'CLI_CODIGO': 'cli_codigo', 'Data': 'qtd_feedback'}, inplace=True)
-#    st.write("Feedback Count by Client Code:")
-#    st.dataframe(qtd_feedback)
+if 'df_feedback' in globals():
+    qtd_feedback = df_feedback.groupby('CLI_CODIGO')['Data'].count().reset_index()
+    qtd_feedback.rename(columns={'CLI_CODIGO': 'cli_codigo', 'Data': 'qtd_feedback'}, inplace=True)
+    st.write("Feedback Count by Client Code:")
+    st.dataframe(qtd_feedback)
 
-#if 'df_campanha' in globals():
-#    qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
-#    qtd_campanha.rename(columns={'Cliente': 'cli_codigo', 'Campanha_Nome': 'qtd_campanha'}, inplace=True)
-#    st.write("Campaign Count by Client Code:")
-#    st.dataframe(qtd_campanha)
+if 'df_campanha' in globals():
+    qtd_campanha = df_campanha.groupby('Cliente')['Campanha_Nome'].count().reset_index()
+    qtd_campanha.rename(columns={'Cliente': 'cli_codigo', 'Campanha_Nome': 'qtd_campanha'}, inplace=True)
+    st.write("Campaign Count by Client Code:")
+    st.dataframe(qtd_campanha)
 
-#if 'df_treinamento' in globals():
-#    qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
-#    qtd_treinamento = qtd_treinamento[['Cliente', 'Treinamento']]
-#    qtd_treinamento.rename(columns={'Cliente': 'cli_codigo', 'Treinamento': 'qtd_treinamento'}, inplace=True)
-#    st.write("Training Count by Client Code:")
-#    st.dataframe(qtd_treinamento)
+if 'df_treinamento' in globals():
+    qtd_treinamento = df_treinamento.groupby('Cliente').count().reset_index()
+    qtd_treinamento = qtd_treinamento[['Cliente', 'Treinamento']]
+    qtd_treinamento.rename(columns={'Cliente': 'cli_codigo', 'Treinamento': 'qtd_treinamento'}, inplace=True)
+    st.write("Training Count by Client Code:")
+    st.dataframe(qtd_treinamento)
 
 # Check if all necessary DataFrames are available
-#required_dfs = ['vendas_cliente', 'acessos_cliente', 'qtd_feedback', 'qtd_campanha', 'qtd_treinamento']
-#if all(df_name in globals() for df_name in required_dfs):
+required_dfs = ['vendas_cliente', 'acessos_cliente', 'qtd_feedback', 'qtd_campanha', 'qtd_treinamento']
+if all(df_name in globals() for df_name in required_dfs):
     # Merges
-#    analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
-#    analise_vendas.fillna(0, inplace=True)
-#    analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
-#    analise_vendas.fillna(0, inplace=True)
-#    analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
-#    analise_vendas.fillna(0, inplace=True)
-#    analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
-#    analise_vendas.fillna(0, inplace=True)
+    analise_vendas = vendas_cliente.merge(acessos_cliente, left_on='cli_codigo', right_on='CLI_CODIGO', how='left')
+    analise_vendas.fillna(0, inplace=True)
+    analise_vendas = analise_vendas.merge(qtd_treinamento, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+    analise_vendas = analise_vendas.merge(qtd_campanha, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
+    analise_vendas = analise_vendas.merge(qtd_feedback, left_on='cli_codigo', right_on='cli_codigo', how='left')
+    analise_vendas.fillna(0, inplace=True)
     
     # Filter columns
-#    analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
-#    st.write("Filtered analise_vendas:", analise_vendas.head())
+    analise_vendas = analise_vendas[['cli_codigo', 'Vlr_Liquido', 'Qtd_Vendas', 'Quantidade_de_Acessos', 'qtd_treinamento', 'qtd_campanha', 'qtd_feedback', 'N_Produtos', 'Vlr_Desconto']]
+    st.write("Filtered analise_vendas:", analise_vendas.head())
 
     
     # Make predictions
