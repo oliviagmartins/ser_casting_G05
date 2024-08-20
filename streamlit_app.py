@@ -29,6 +29,7 @@ else:
     st.write("Falha em carregar o modelo.")
 
 
+st.write('teste')
 st.write("Tipo de modelo:", type(model))
 
 # File uploaders for each CSV file
